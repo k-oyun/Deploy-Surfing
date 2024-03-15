@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
+import {Link} from "react-router-dom";
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -11,7 +12,7 @@ const Nav = styled(motion.nav)`
   flex-direction: row;
 `;
 
-const TabBar = styled(motion.svg)`
+const OpenSidebar = styled(motion.svg)`
   width: 38px;
   height: 23px;
   //fill은 rgb코드로
@@ -52,30 +53,43 @@ const LogInBtn = styled.button`
 
 const LogIn = styled.text``;
 
+const Sidebar = styled.div`
+  background-color: "tomato";
+  flex: 1;
+`;
+
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Nav>
         <Col>
-          <TabBar
+          <OpenSidebar
             xmlns="http://www.w3.org/2000/svg"
             width="448"
             height="512"
             viewBox="0 0 448, 512 "
+            onClick={() => setIsOpen(true)}
           >
             <motion.path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-          </TabBar>
-          <MyAppBtn>
-            <MyApp>내 앱</MyApp>
-          </MyAppBtn>
-          <BaepoBtn>
-            <Baepo>새로운 배포</Baepo>
-          </BaepoBtn>
-        </Col>
+          </OpenSidebar>
 
-        <LogInBtn>
-          <LogIn>로그인</LogIn>
-        </LogInBtn>
+          <Link to="/myapp">
+            <MyAppBtn>
+              <MyApp>내 앱</MyApp>
+            </MyAppBtn>
+          </Link>
+          <Link to="/new">
+            <BaepoBtn>
+              <Baepo>새로운 배포</Baepo>
+            </BaepoBtn>
+          </Link>
+        </Col>
+        <Link to="/login">
+          <LogInBtn>
+            <LogIn>로그인</LogIn>
+          </LogInBtn>
+        </Link>
       </Nav>
     </>
   );
