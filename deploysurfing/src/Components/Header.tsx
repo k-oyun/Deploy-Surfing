@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 import {Link} from "react-router-dom";
@@ -54,12 +54,24 @@ const LogInBtn = styled.button`
 const LogIn = styled.text``;
 
 const Sidebar = styled.div`
-  background-color: "tomato";
-  flex: 1;
+  background-color: white;
+  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+  width: 300px;
+  height: 600px;
 `;
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const onClick = () => {
+    if (!isOpen) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {}, []);
   return (
     <>
       <Nav>
@@ -69,7 +81,7 @@ function Header() {
             width="448"
             height="512"
             viewBox="0 0 448, 512 "
-            onClick={() => setIsOpen(true)}
+            onClick={onClick}
           >
             <motion.path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </OpenSidebar>
@@ -91,6 +103,11 @@ function Header() {
           </LogInBtn>
         </Link>
       </Nav>
+      {isOpen && (
+        <>
+          <Sidebar></Sidebar>
+        </>
+      )}
     </>
   );
 }
