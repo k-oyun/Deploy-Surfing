@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import styled from "styled-components";
+import {styled} from "styled-components";
 import {motion} from "framer-motion";
 import {Link} from "react-router-dom";
+import {theme} from "../theme";
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -55,15 +56,46 @@ const LogIn = styled.text``;
 
 const Sidebar = styled.div`
   background-color: white;
-  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
   width: 300px;
   height: 600px;
+  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const NewAppBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 50px;
+  margin-top: 28px;
+  border-radius: 15px;
+  border-color: #87c8f7;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+const NewAppBtnText = styled.div`
+  color: #87c8f7;
+  margin-right: 20px;
+  margin-top: 1.5px;
+`;
+
+const NewAppSvg = styled(motion.svg)`
+  width: 38px;
+  height: 23px;
+  //fill은 rgb코드로
+  fill: rgb(135, 200, 247);
+  padding: 10px;
 `;
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const onClick = () => {
+  const [app, setApp] = useState([]);
+  const barOnClick = () => {
     if (!isOpen) {
       setIsOpen(true);
     } else {
@@ -81,7 +113,7 @@ function Header() {
             width="448"
             height="512"
             viewBox="0 0 448, 512 "
-            onClick={onClick}
+            onClick={barOnClick}
           >
             <motion.path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </OpenSidebar>
@@ -105,7 +137,19 @@ function Header() {
       </Nav>
       {isOpen && (
         <>
-          <Sidebar></Sidebar>
+          <Sidebar>
+            <NewAppBtn>
+              <NewAppSvg
+                xmlns="http://www.w3.org/2000/svg"
+                width="448"
+                height="512"
+                viewBox="0 0 448 512 "
+              >
+                <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+              </NewAppSvg>
+              <NewAppBtnText>새 앱 추가</NewAppBtnText>
+            </NewAppBtn>
+          </Sidebar>
         </>
       )}
     </>
