@@ -32,6 +32,7 @@ const MyAppBtn = styled.button`
   outline: 0;
   background-color: transparent;
   margin-left: 15px;
+  cursor: pointer;
 `;
 
 const MyApp = styled.text``;
@@ -41,6 +42,7 @@ const BaepoBtn = styled.button`
   outline: 0;
   background-color: transparent;
   margin-left: 15px;
+  cursor: pointer;
 `;
 
 const Baepo = styled.text``;
@@ -50,6 +52,7 @@ const LogInBtn = styled.button`
   outline: 0;
   background-color: transparent;
   margin-right: 50px;
+  cursor: pointer;
 `;
 
 const LogIn = styled.text``;
@@ -72,14 +75,16 @@ const NewAppBtn = styled.button`
   width: 240px;
   height: 50px;
   margin-top: 28px;
+  border: 1px solid;
   border-radius: 15px;
   border-color: #87c8f7;
   background-color: transparent;
   cursor: pointer;
 `;
 
-const NewAppBtnText = styled.div`
-  color: #87c8f7;
+const NewAppBtnText = styled.text`
+  color: ${(props) => props.theme.mainColor};
+  /* color: #87c8f7; */
   margin-right: 20px;
   margin-top: 1.5px;
 `;
