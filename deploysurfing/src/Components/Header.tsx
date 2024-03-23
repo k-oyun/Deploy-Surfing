@@ -58,6 +58,7 @@ const LogInBtn = styled.button`
 const LogIn = styled.text``;
 
 const Sidebar = styled.div`
+  position: fixed;
   background-color: white;
   width: 300px;
   height: 600px;
