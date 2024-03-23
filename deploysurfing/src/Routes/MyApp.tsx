@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import Header from "../Components/Header";
+
 import {styled} from "styled-components";
 
 const Test = styled.text`
