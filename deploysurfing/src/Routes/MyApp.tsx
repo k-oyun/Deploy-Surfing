@@ -6,6 +6,7 @@ import {styled} from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex: 1;
 `;
 
 const AvoidSidebar = styled.div`
@@ -100,6 +101,8 @@ const AppSettingSvg = styled.svg`
 const AppDeleteSvg = styled(AppSettingSvg)``;
 
 const AppStopSvg = styled.svg``;
+
+const Logo = styled.image``;
 
 function Login() {
   return (
