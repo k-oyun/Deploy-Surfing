@@ -56,8 +56,7 @@ const LogInBtn = styled.button`
   border: 0;
   outline: 0;
   background-color: transparent;
-  margin-right: 20px;
-  flex: 1;
+  margin-right: 10px;
   justify-content: flex-end;
   cursor: pointer;
 `;
@@ -108,7 +107,7 @@ const LogoDiv = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  margin-right: 120px;
+  margin-right: 140px;
 `;
 
 const LogoBtn = styled.button`
@@ -127,7 +126,6 @@ function Header() {
   const [apps, setApps] = useState([]);
 
   const navigate = useNavigate();
-  const newAppOnClick = () => {};
 
   const barOnClick = () => {
     if (!isOpen) {
@@ -151,17 +149,13 @@ function Header() {
             <motion.path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </OpenSidebar>
 
-          <Link to="/myApp">
-            <MyAppBtn>
-              <MyApp>내 앱</MyApp>
-            </MyAppBtn>
-          </Link>
+          <MyAppBtn onClick={() => navigate("/myApp")}>
+            <MyApp>내 앱</MyApp>
+          </MyAppBtn>
 
-          <Link to="/new">
-            <BaepoBtn>
-              <Baepo>새로운 배포</Baepo>
-            </BaepoBtn>
-          </Link>
+          <BaepoBtn onClick={() => navigate("/new")}>
+            <Baepo>새로운 배포</Baepo>
+          </BaepoBtn>
 
           <LogoDiv>
             <LogoBtn onClick={() => navigate("/")}>
@@ -169,17 +163,16 @@ function Header() {
             </LogoBtn>
           </LogoDiv>
         </Col>
-        <Link to="/login">
-          <LogInBtn>
-            <LogIn>로그인</LogIn>
-          </LogInBtn>
-        </Link>
+
+        <LogInBtn onClick={() => navigate("/login")}>
+          <LogIn>로그인</LogIn>
+        </LogInBtn>
       </Nav>
 
       {isOpen && (
         <>
           <Sidebar>
-            <NewAppBtn onClick={newAppOnClick}>
+            <NewAppBtn onClick={() => navigate("/addApp")}>
               <NewAppSvg
                 xmlns="http://www.w3.org/2000/svg"
                 width="448"

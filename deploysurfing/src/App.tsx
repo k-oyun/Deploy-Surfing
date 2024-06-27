@@ -6,6 +6,7 @@ import Login from "./Routes/Login.tsx";
 import New from "./Routes/New.tsx";
 
 import Main from "./Routes/Main.tsx";
+import AddApp from "./Routes/AddApp.tsx";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
 
       <Routes>
         <Route Component={Login} path="/login" />
-        <Route Component={MyApp} path="/myapp" />
+        <Route Component={MyApp} path="/myApp" />
         <Route Component={New} path="/new" />
+        <Route Component={AddApp} path="/addApp" />
         <Route Component={Main} path="/" />
       </Routes>
     </Router>

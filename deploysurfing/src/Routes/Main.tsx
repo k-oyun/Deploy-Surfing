@@ -1,14 +1,8 @@
 import React, {useEffect, useState} from "react";
-import Header from "./Components/Header.tsx";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import MyApp from "./Routes/MyApp.tsx";
-import Login from "./Routes/Login.tsx";
-import New from "./Routes/New.tsx";
 import styled from "styled-components";
 import BackgroundImage from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/background.png";
 import DefloyLogo from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/logo.png";
 import SubImage from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/subImage.png";
-import {theme} from "./theme.ts";
 
 const MainWrapper = styled.div`
   display: flex;
