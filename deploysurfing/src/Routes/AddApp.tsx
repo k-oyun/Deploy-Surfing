@@ -73,11 +73,11 @@ const InputFileLabelWrapper = styled.div`
 const InputFileLabel = styled.label`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   height: 34px;
   margin-top: 14px;
   cursor: pointer;
-  position: absolute;
 `;
 
 const InputFileHidden = styled.input`
@@ -88,9 +88,9 @@ const FileImg = styled.img`
   width: 10px;
   height: 15px;
   display: flex;
-  position: absolute;
+  justify-content: flex-end;
   margin-top: 2px;
-  margin-left: 645px;
+  margin-right: 5px;
 `;
 
 const InputText = styled.text`
@@ -113,7 +113,8 @@ function AddApp() {
   const [appName, setAppName] = useState();
   const [url, setUrl] = useState();
   const [framework, setFramework] = useState(null);
-  const [fileName, setFileName] = useState();
+  const [fileName, setFileName] = useState("파일을 업로드하세요.");
+
   const onChangeAppName = (text) => {
     setAppName(text.target.value);
   };
@@ -130,13 +131,51 @@ function AddApp() {
     setFileName(file.target.files[0].name);
   };
 
-  console.log(fileName);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const appInfo = new FormData();
+    appInfo.append("appName", appName);
+    appInfo.append("url", url);
+    appInfo.append("framework", framework);
+    appInfo.append("fileName", fileName);
+
+    try {
+      const response = await fetch("", {
+        method: "POST",
+        body: appInfo,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Success:", result);
+      } else {
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    //전송 확인 코드
+
+    // for (let [key, value] of appInfo.entries()) {
+    //   if (
+    //     typeof value === "object" &&
+    //     value !== null &&
+    //     value.constructor.name === "File"
+    //   ) {
+    //     console.log(`${key}: ${value.name}, ${value.size} bytes`);
+    //   } else {
+    //     console.log(`${key}: ${value}`);
+    //   }
+    // }
+  };
 
   return (
     <Wrapper>
       <AddAppWrapper>
         <AddAppText>새 앱 추가</AddAppText>
-        <InputForm>
+        <InputForm onSubmit={handleSubmit}>
           <InputText>앱 이름 :</InputText>
           <Input onChange={onChangeAppName}></Input>
           <InputText>Github Repository URL :</InputText>
@@ -150,7 +189,6 @@ function AddApp() {
           <InputFileLabelWrapper>
             <InputFileLabel>
               {fileName}
-
               <InputFileHidden
                 type="file"
                 onChange={onChangeFile}
@@ -158,7 +196,7 @@ function AddApp() {
               <FileImg src={File}></FileImg>
             </InputFileLabel>
           </InputFileLabelWrapper>
-          <CompleteButton>완료</CompleteButton>
+          <CompleteButton type="submit">완료</CompleteButton>
         </InputForm>
       </AddAppWrapper>
     </Wrapper>
