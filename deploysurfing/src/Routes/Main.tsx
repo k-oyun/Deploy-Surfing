@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BackgroundImage from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/background.png";
 import DefloyLogo from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/logo.png";
@@ -38,13 +38,24 @@ const LogoImg = styled.img`
   margin-bottom: 30px;
 `;
 
-const MainText = styled.text`
+const MainTopText = styled.text`
   font-weight: 800;
   font-size: 30px;
   margin-bottom: 30px;
 `;
+const SubTopText = styled.text`
+  font-weight: 600;
+  margin-bottom: 25px;
+`;
+const MainText = styled.text`
+  font-weight: 800;
+  font-size: 30px;
+  margin-bottom: 30px;
+  color: white;
+`;
 
 const SubText = styled.text`
+  color: white;
   font-weight: 600;
   margin-bottom: 25px;
 `;
@@ -65,7 +76,7 @@ const SubWrapper = styled.div`
   width: 100%;
   height: 700px;
   margin-top: 300px;
-  background-color: ${(props) => props.theme.sideColor};
+  background-color: black;
 `;
 
 const SubDiv = styled.div`
@@ -94,12 +105,21 @@ const Footer = styled.div`
   width: 100%;
   height: 45px;
   justify-content: space-between;
+  background-color: #3b3b3b;
 `;
 
 const FooterLogoDiv = styled.div`
+  display: flex;
   flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  /* background-color: red; */
 `;
-
+const FooterLogoTxt = styled.text`
+  color: white;
+  font-size: 0.9rem;
+  margin-left: 0.9rem;
+`;
 const FooterLogoImg = styled.img`
   width: 110px;
   height: 35px;
@@ -109,18 +129,18 @@ const FooterLogoImg = styled.img`
 
 const FooterTextDiv = styled.div`
   flex: 1;
-  margin-top: 20px;
+  margin-top: 0.9rem;
   text-align: center;
 `;
 
 const FooterText = styled.text`
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 10px;
+  color: #8a8585;
+  font-size: 0.7rem;
 `;
 
 const FooterBtnDiv = styled.div`
   flex: 1;
-  margin-top: 17px;
+  margin-top: 0.4rem;
   margin-right: 20px;
   justify-content: flex-end;
   display: flex;
@@ -130,6 +150,8 @@ const FooterBtnDiv = styled.div`
 const FooterBtn = styled.button`
   background-color: transparent;
   border: 0;
+  color: white;
+  text-decoration: underline;
 `;
 
 function Main() {
@@ -142,8 +164,10 @@ function Main() {
         <MainDiv>
           <LogoImg src={DefloyLogo} />
 
-          <MainText>1초만에 프로젝트 배포하기</MainText>
-          <SubText>불필요한 설정 없이 프로젝트를 바로 배포해 보세요.</SubText>
+          <MainTopText>1초만에 프로젝트 배포하기</MainTopText>
+          <SubTopText>
+            불필요한 설정 없이 프로젝트를 바로 배포해 보세요.
+          </SubTopText>
           <StartBtn>
             <StartBtnText>시작하기</StartBtnText>
           </StartBtn>
@@ -172,7 +196,8 @@ function Main() {
 
       <Footer>
         <FooterLogoDiv>
-          <FooterLogoImg src={DefloyLogo} />
+          <FooterLogoTxt>Deploy Surfing</FooterLogoTxt>
+          {/* <FooterLogoImg src={DefloyLogo} /> */}
         </FooterLogoDiv>
 
         <FooterTextDiv>
