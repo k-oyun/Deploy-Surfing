@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import BackgroundImage from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/background.png";
-import DefloyLogo from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/logo.png";
-import SubImage from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/subImage.png";
+import BackgroundImage from "../assets/images/background.png";
+import DefloyLogo from "../assets/images/logo.png";
+import SubImage from "../assets/images/subImage.png";
+import Header from "../Components/Header.tsx";
+import Footer from "../Components/Footer.tsx";
 
 const MainWrapper = styled.div`
   display: flex;
@@ -100,63 +102,10 @@ const SubImg = styled.img`
   height: 40vh;
 `;
 
-const Footer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 45px;
-  justify-content: space-between;
-  background-color: #3b3b3b;
-`;
-
-const FooterLogoDiv = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: flex-start;
-  align-items: center;
-  /* background-color: red; */
-`;
-const FooterLogoTxt = styled.text`
-  color: white;
-  font-size: 0.9rem;
-  margin-left: 0.9rem;
-`;
-const FooterLogoImg = styled.img`
-  width: 110px;
-  height: 35px;
-  margin-left: 20px;
-  margin-top: 5px;
-`;
-
-const FooterTextDiv = styled.div`
-  flex: 1;
-  margin-top: 0.9rem;
-  text-align: center;
-`;
-
-const FooterText = styled.text`
-  color: #8a8585;
-  font-size: 0.7rem;
-`;
-
-const FooterBtnDiv = styled.div`
-  flex: 1;
-  margin-top: 0.4rem;
-  margin-right: 20px;
-  justify-content: flex-end;
-  display: flex;
-  flex: 1;
-`;
-
-const FooterBtn = styled.button`
-  background-color: transparent;
-  border: 0;
-  color: white;
-  text-decoration: underline;
-`;
-
 function Main() {
   return (
     <>
+      <Header />
       <MainWrapper>
         <Background>
           <BackgroundImg src={BackgroundImage} />
@@ -193,24 +142,7 @@ function Main() {
           <SubImg src={SubImage}></SubImg>
         </SubImgDiv>
       </SubWrapper>
-
-      <Footer>
-        <FooterLogoDiv>
-          <FooterLogoTxt>Deploy Surfing</FooterLogoTxt>
-          {/* <FooterLogoImg src={DefloyLogo} /> */}
-        </FooterLogoDiv>
-
-        <FooterTextDiv>
-          <FooterText>
-            Copyright 2024. DeploySurfing All Rights Reserved
-          </FooterText>
-        </FooterTextDiv>
-
-        <FooterBtnDiv>
-          <FooterBtn>Contact</FooterBtn>
-          <FooterBtn>About</FooterBtn>
-        </FooterBtnDiv>
-      </Footer>
+      <Footer />
     </>
   );
 }

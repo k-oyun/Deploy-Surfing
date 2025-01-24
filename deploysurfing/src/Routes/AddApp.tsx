@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import File from "/Users/oyun/Documents/develop/Deploy-Surfing/deploysurfing/src/assets/images/file-lines-solid 1.png";
+import File from "../assets/images/file-lines-solid 1.png";
+import Header from "../Components/Header.tsx";
 import { theme } from "../theme";
+import Footer from "../Components/Footer.tsx";
 
 const Wrapper = styled.div`
   display: flex;
@@ -156,36 +158,40 @@ function AddApp() {
     appInfo.append("fileName", fileName);
   };
   return (
-    <Wrapper>
-      <AddAppWrapper>
-        <AddAppText>새 앱 추가</AddAppText>
-        <InputForm onSubmit={handleSubmit}>
-          <InputText>앱 이름 :</InputText>
-          <Input onChange={onChangeAppName}></Input>
-          <InputText>Github Repository URL :</InputText>
-          <Input onChange={onChangeUrl}></Input>
-          <InputText>Framework :</InputText>
-          <InputSelect onChange={onChangeFramework} style={{}}>
-            <option value="Spring">Spring Boot</option>
-            <option value="Django">Django</option>
-          </InputSelect>
-          <InputText>yml</InputText>
-          <InputFileLabelWrapper>
-            <InputFileLabel>
-              {fileName}
-              <InputFileHidden
-                type="file"
-                onChange={onChangeFile}
-              ></InputFileHidden>
-              <FileImg src={File}></FileImg>
-            </InputFileLabel>
-          </InputFileLabelWrapper>
-          <InputText>설명</InputText>
-          <InputTextArea></InputTextArea>
-        </InputForm>
-        <CompleteButton>완료</CompleteButton>
-      </AddAppWrapper>
-    </Wrapper>
+    <>
+      <Header />
+      <Wrapper>
+        <AddAppWrapper>
+          <AddAppText>새 앱 추가</AddAppText>
+          <InputForm onSubmit={handleSubmit}>
+            <InputText>앱 이름 :</InputText>
+            <Input onChange={onChangeAppName}></Input>
+            <InputText>Github Repository URL :</InputText>
+            <Input onChange={onChangeUrl}></Input>
+            <InputText>Framework :</InputText>
+            <InputSelect onChange={onChangeFramework} style={{}}>
+              <option value="Spring">Spring Boot</option>
+              <option value="Django">Django</option>
+            </InputSelect>
+            <InputText>yml</InputText>
+            <InputFileLabelWrapper>
+              <InputFileLabel>
+                {fileName}
+                <InputFileHidden
+                  type="file"
+                  onChange={onChangeFile}
+                ></InputFileHidden>
+                <FileImg src={File}></FileImg>
+              </InputFileLabel>
+            </InputFileLabelWrapper>
+            <InputText>설명</InputText>
+            <InputTextArea></InputTextArea>
+          </InputForm>
+          <CompleteButton>완료</CompleteButton>
+        </AddAppWrapper>
+      </Wrapper>
+      <Footer />
+    </>
   );
 }
 
