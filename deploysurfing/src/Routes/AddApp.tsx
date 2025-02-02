@@ -24,7 +24,7 @@ const AddAppWrapper = styled.div`
   border-radius: 20px;
 `;
 
-const AddAppText = styled.text`
+const AddAppText = styled.span`
   font-size: 1rem;
   font-weight: 800;
   margin-top: 3%;
@@ -97,7 +97,7 @@ const FileImg = styled.img`
   margin-right: 4%;
 `;
 
-const InputText = styled.text`
+const InputText = styled.span`
   margin-top: 4%;
   color: white;
   font-weight: 800;

@@ -96,7 +96,28 @@ const Button = styled.button`
 `;
 
 const MyPage = () => {
-  const [GitHubToken, setGitHubToken] = useState(``);
+  const [gitHubToken, setGitHubToken] = useState(``);
+  const [awsRoleArn, setAWSRoleArn] = useState(``);
+  const [awsAccessKey, setAWSAccessKey] = useState(``);
+  const [awsSecretKey, setAWSSecretKey] = useState(``);
+  const [dockerHubToken, setDockerHubToken] = useState(``);
+
+  const onChangeGitHub = (text) => {
+    setGitHubToken(text.target.value);
+  };
+  const onChangeAWSArn = (text) => {
+    setAWSRoleArn(text.target.value);
+  };
+  const onChangeAWSAccessKey = (text) => {
+    setAWSAccessKey(text.target.value);
+  };
+  const onChangeAWSSecretKey = (text) => {
+    setAWSSecretKey(text.target.value);
+  };
+  const onChangeDockerHubToken = (text) => {
+    setDockerHubToken(text.target.value);
+  };
+  // console.log(GitHubToken, AWSRoleArn, AWSAccessKey, AWSSecretKey);
   return (
     <>
       <Header />
@@ -108,19 +129,34 @@ const MyPage = () => {
           </UserInfo>
           <GitHubDocker>
             <ExplainTxt>GitHub Token</ExplainTxt>
-            <ImpInput></ImpInput>
+            <ImpInput
+              onChange={onChangeGitHub}
+              value={gitHubToken || ""}
+            ></ImpInput>
           </GitHubDocker>
           <AWS>
             <ExplainTxt>AWS IAM RoleArn</ExplainTxt>
-            <ImpInput></ImpInput>
+            <ImpInput
+              onChange={onChangeAWSArn}
+              value={awsRoleArn || ""}
+            ></ImpInput>
             <ExplainTxt>AWS IAM Access Key</ExplainTxt>
-            <ImpInput></ImpInput>
+            <ImpInput
+              onChange={onChangeAWSAccessKey}
+              value={awsAccessKey || ""}
+            ></ImpInput>
             <ExplainTxt>AWS IAM Secret Key</ExplainTxt>
-            <ImpInput></ImpInput>
+            <ImpInput
+              onChange={onChangeAWSSecretKey}
+              value={awsSecretKey || ""}
+            ></ImpInput>
           </AWS>
           <GitHubDocker>
             <ExplainTxt>Docker Hub Token</ExplainTxt>
-            <ImpInput></ImpInput>
+            <ImpInput
+              onChange={onChangeDockerHubToken}
+              value={dockerHubToken}
+            ></ImpInput>
           </GitHubDocker>
           <ButtonWrapper>
             <Button>회원탈퇴</Button>

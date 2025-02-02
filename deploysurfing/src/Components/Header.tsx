@@ -47,7 +47,7 @@ const LogInBtn = styled.button`
   cursor: pointer;
 `;
 
-const LogIn = styled.text`
+const LogIn = styled.span`
   color: white;
   margin-right: 0.2rem;
 `;
@@ -76,7 +76,7 @@ const NewAppBtn = styled.button`
   cursor: pointer;
 `;
 
-const NewAppBtnText = styled.text`
+const NewAppBtnText = styled.span`
   font-weight: 800;
   margin-right: 2rem;
   margin-top: 0.2rem;
@@ -103,7 +103,7 @@ const LogoBtn = styled.button`
   background-color: transparent;
 `;
 
-const LogoTxt = styled.text`
+const LogoTxt = styled.span`
   color: white;
   font-size: 1rem;
 `;
@@ -136,7 +136,7 @@ const AppBtnTextWrapper = styled.div`
   margin-left: 10px;
 `;
 
-const AppBtnText = styled.text``;
+const AppBtnText = styled.span``;
 
 const PowerBtn = styled.button`
   display: flex;

@@ -39,23 +39,23 @@ const LogoImg = styled.img`
   margin-bottom: 30px;
 `;
 
-const MainTopText = styled.text`
+const MainTopText = styled.span`
   font-weight: 800;
   font-size: 30px;
   margin-bottom: 30px;
 `;
-const SubTopText = styled.text`
+const SubTopText = styled.span`
   font-weight: 600;
   margin-bottom: 25px;
 `;
-const MainText = styled.text`
+const MainText = styled.span`
   font-weight: 800;
   font-size: 30px;
   margin-bottom: 30px;
   color: white;
 `;
 
-const SubText = styled.text`
+const SubText = styled.span`
   color: white;
   font-weight: 600;
   margin-bottom: 25px;
@@ -69,7 +69,7 @@ const StartBtn = styled.button`
   background-color: ${(props) => props.theme.mainColor};
 `;
 
-const StartBtnText = styled.text``;
+const StartBtnText = styled.span``;
 
 const SubWrapper = styled.div`
   display: flex;

@@ -16,7 +16,7 @@ const FooterLogoDiv = styled.div`
   align-items: center;
   /* background-color: red; */
 `;
-const FooterLogoTxt = styled.text`
+const FooterLogoTxt = styled.span`
   color: white;
   font-size: 0.9rem;
   margin-left: 0.9rem;
@@ -34,7 +34,7 @@ const FooterTextDiv = styled.div`
   text-align: center;
 `;
 
-const FooterText = styled.text`
+const FooterText = styled.span`
   color: #8a8585;
   font-size: 0.7rem;
 `;
