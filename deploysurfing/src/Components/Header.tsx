@@ -38,19 +38,6 @@ const MyAppBtn = styled.button`
   cursor: pointer;
 `;
 
-const MyApp = styled.text``;
-
-const BaepoBtn = styled.button`
-  border: 0;
-  outline: 0;
-  background-color: transparent;
-  margin-left: 15px;
-  margin-bottom: 1px;
-  cursor: pointer;
-`;
-
-const Baepo = styled.text``;
-
 const LogInBtn = styled.button`
   border: 0;
   outline: 0;
@@ -68,11 +55,11 @@ const LogIn = styled.text`
 const Sidebar = styled.div`
   position: absolute;
   background-color: rgb(59, 59, 59);
-  width: 15%;
-  height: 100vh;
+  width: 20rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 1.5rem;
 `;
 
 const NewAppBtn = styled.button`
@@ -129,7 +116,8 @@ const LogoImg = styled.img`
 const UserAppBtn = styled.button`
   display: flex;
   align-items: center;
-  margin-top: 28px;
+  margin-top: 1.2rem;
+  margin-bottom: 0.3;
   width: 15rem;
   height: 3.5rem;
   border: 3px solid;

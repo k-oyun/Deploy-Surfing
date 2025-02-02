@@ -7,21 +7,19 @@ import Footer from "../Components/Footer.tsx";
 
 const Wrapper = styled.div`
   display: flex;
-  flex: 1;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
   background-color: black;
 `;
 
 const AddAppWrapper = styled.div`
-  width: 37%;
+  width: 35rem;
   height: 40rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* margin-left: 510px; */
   margin-top: 5%;
+  margin-bottom: 7%;
   background-color: #181818;
   border-radius: 20px;
 `;
@@ -91,7 +89,7 @@ const InputFileHidden = styled.input`
 `;
 
 const FileImg = styled.img`
-  width: 2%;
+  width: 2.5%;
   height: 40%;
   display: flex;
   justify-content: flex-end;
