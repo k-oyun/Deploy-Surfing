@@ -30,14 +30,6 @@ const Col = styled.div`
   justify-content: space-between;
 `;
 
-const MyAppBtn = styled.button`
-  border: 0;
-  outline: 0;
-  background-color: transparent;
-  margin-left: 15px;
-  cursor: pointer;
-`;
-
 const LogInBtn = styled.button`
   border: 0;
   outline: 0;
@@ -94,11 +86,15 @@ const UserLogoSvg = styled(motion.svg)`
   height: 1.5rem;
 `;
 
-const LogoBtn = styled.button`
+const UserMyPageLogoSvg = styled(motion.svg)`
+  width: 2.5rem;
+  height: 1.5rem;
+  padding-right: 0.6rem;
+`;
+const LogoBtn = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  cursor: pointer;
   border: 0;
   background-color: transparent;
 `;
@@ -106,11 +102,7 @@ const LogoBtn = styled.button`
 const LogoTxt = styled.span`
   color: white;
   font-size: 1rem;
-`;
-
-const LogoImg = styled.img`
-  width: 140px;
-  height: 45px;
+  cursor: pointer;
 `;
 
 const UserAppBtn = styled.button`
@@ -167,11 +159,43 @@ const PowerBtnImg = styled.img`
   margin-left: -1px;
 `;
 
+const UserMyPageOptions = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 7%;
+  height: 13%;
+  margin-top: 10rem;
+  margin-left: 110rem;
+  background-color: rgb(59, 59, 59);
+  border: 1px solid white;
+  border-radius: 5%;
+`;
+
+const UserMyPageOption = styled.div`
+  display: flex;
+  width: 55%;
+  height: 25%;
+  margin-top: 0.4rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* background-color: red; */
+`;
+
+const UserMyPageOptionTxt = styled.span`
+  color: white;
+  font-weight: 800;
+`;
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [selectedApp, setSelectedApp] = useState(null);
+  const [isUserOptionClicked, setIsUserOptionClicked] = useState(false);
   const [apps, setApps] = useState([
     {
       id: 1,
@@ -199,6 +223,10 @@ const Header = () => {
     );
   };
 
+  const onClickUserLogo = () => {
+    setIsUserOptionClicked((prev) => !prev);
+  };
+
   return (
     <>
       <Nav>
@@ -218,7 +246,7 @@ const Header = () => {
           </LogoBtn>
         </Col>
         {isLogin ? (
-          <LogInBtn onClick={() => navigate("/myPage")}>
+          <LogInBtn onClick={onClickUserLogo}>
             <UserLogoSvg
               xmlns="http://www.w3.org/2000/svg"
               width="48"
@@ -236,6 +264,34 @@ const Header = () => {
             <LogIn>Log in</LogIn>
           </LogInBtn>
         )}
+        {isUserOptionClicked ? (
+          <UserMyPageOptions>
+            <UserMyPageOption>
+              <UserMyPageLogoSvg
+                xmlns="http://www.w3.org/2000/svg"
+                width="39"
+                height="39"
+                viewBox="0 0 39 39"
+              >
+                <path
+                  d="M19.5 21.9375C22.4091 21.9375 25.199 20.7819 27.2561 18.7248C29.3131 16.6678 30.4688 13.8778 30.4688 10.9688C30.4688 8.05966 29.3131 5.26971 27.2561 3.21267C25.199 1.15563 22.4091 0 19.5 0C16.5909 0 13.801 1.15563 11.7439 3.21267C9.68688 5.26971 8.53125 8.05966 8.53125 10.9688C8.53125 13.8778 9.68688 16.6678 11.7439 18.7248C13.801 20.7819 16.5909 21.9375 19.5 21.9375ZM12.2865 24.375C5.49961 24.375 0 29.8746 0 36.6615C0 37.9564 1.05117 39 2.33848 39H36.6615C37.9564 39 39 37.9488 39 36.6615C39 29.8746 33.5004 24.375 26.7135 24.375H12.2865Z"
+                  fill="white"
+                />
+              </UserMyPageLogoSvg>
+              <UserMyPageOptionTxt>User</UserMyPageOptionTxt>
+            </UserMyPageOption>
+            <UserMyPageOption
+              onClick={() => {
+                navigate("/mypage");
+              }}
+            >
+              <UserMyPageOptionTxt>마이페이지</UserMyPageOptionTxt>
+            </UserMyPageOption>
+            <UserMyPageOption>
+              <UserMyPageOptionTxt>로그아웃</UserMyPageOptionTxt>
+            </UserMyPageOption>
+          </UserMyPageOptions>
+        ) : null}
       </Nav>
 
       {isOpen && (

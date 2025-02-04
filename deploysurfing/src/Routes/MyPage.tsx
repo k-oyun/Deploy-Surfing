@@ -126,18 +126,6 @@ const MyPage = () => {
   const [awsSecretKey, setAWSSecretKey] = useState(``);
   const [dockerHubToken, setDockerHubToken] = useState(``);
 
-  //----------아이콘 누름 처리-------------
-  const [gitReady, setGitReady] = useState(false);
-  const [gitCanSee, setGitCanSee] = useState("password");
-  const [awsArnReady, setAwsArnReady] = useState(false);
-  const [awsArnCanSee, setAwsArnCanSee] = useState("password");
-  const [awsAcessReady, setAwsAcessReady] = useState(false);
-  const [awsAcessCanSee, setAwsAcessCanSee] = useState("password");
-  const [awsSecretReady, setAwsSecretReady] = useState(false);
-  const [awsSecretCanSee, setAwsSecretCanSee] = useState("password");
-  const [dockerReady, setDockerReady] = useState(false);
-  const [dockerCanSee, setDockerCanSee] = useState("password");
-
   const onChangeGitHub = (text) => {
     setGitHubToken(text.target.value);
   };
@@ -153,6 +141,18 @@ const MyPage = () => {
   const onChangeDockerHubToken = (text) => {
     setDockerHubToken(text.target.value);
   };
+
+  //----------아이콘 누름 처리-------------
+  const [gitReady, setGitReady] = useState(false);
+  const [gitCanSee, setGitCanSee] = useState("password");
+  const [awsArnReady, setAwsArnReady] = useState(false);
+  const [awsArnCanSee, setAwsArnCanSee] = useState("password");
+  const [awsAcessReady, setAwsAcessReady] = useState(false);
+  const [awsAcessCanSee, setAwsAcessCanSee] = useState("password");
+  const [awsSecretReady, setAwsSecretReady] = useState(false);
+  const [awsSecretCanSee, setAwsSecretCanSee] = useState("password");
+  const [dockerReady, setDockerReady] = useState(false);
+  const [dockerCanSee, setDockerCanSee] = useState("password");
 
   //--------------------------------------------------------
   return (
