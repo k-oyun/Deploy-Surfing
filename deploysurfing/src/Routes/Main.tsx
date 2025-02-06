@@ -8,17 +8,18 @@ import PowerButton from "../assets/images/powerbutton.png";
 import App from "../App";
 const Wrapper = styled.div`
   display: flex;
-  height: 100%;
+  min-height: 100vh;
   background-color: black;
 `;
 
 const Sidebar = styled.div`
   background-color: rgb(59, 59, 59);
   width: 20rem;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: stretch;
   /* padding-bottom: 1.5rem; */
 `;
 
@@ -108,21 +109,17 @@ const DeployInfoWrappers = styled.div`
   align-items: center;
   flex-direction: column;
   width: 90%;
-  /* height: 100%; */
-  /* background-color: red; */
 `;
 
 const DeployInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
-  height: 16rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   background-color: #d5d5d5;
   border-radius: 10px;
   overflow: hidden;
-  /* background-color: blue; */
 `;
 
 const DeployInfoTitle = styled.span`
@@ -130,8 +127,6 @@ const DeployInfoTitle = styled.span`
   font-weight: 700;
   margin-bottom: 0.2rem;
   margin-left: 1.1%;
-  /* margin-right: 60%; */
-  /* background-color: red; */
 `;
 
 const DeployInfoTopWrapper = styled.div`
@@ -142,7 +137,6 @@ const DeployInfoTopWrapper = styled.div`
   align-items: center;
   margin-top: 0.6rem;
   margin-bottom: 0.4rem;
-  /* background-color: blue; */
 `;
 
 const DeploySvg = styled(motion.svg)`
@@ -180,7 +174,6 @@ const DetailInfoWrapper = styled.div`
   height: 2.3rem;
   display: flex;
   margin-left: 1rem;
-  /* flex-direction: column; */
 `;
 
 const DetailInfoLeft = styled.div`
@@ -208,7 +201,6 @@ const AppInfoWrapper = styled.div`
   flex-direction: column;
   width: 95%;
   height: 1rem;
-  /* margin-top: 0.5rem; */
   margin-bottom: 1rem;
   background-color: #d5d5d5;
   border-radius: 10px;
@@ -224,9 +216,9 @@ const AppExplainWrapper = styled.div`
   display: flex;
   width: 80%;
   height: 5rem;
+  position: absolute;
   margin-left: 2%;
   align-items: center;
-  /* background-color: red; */
 `;
 
 const StatusSvg = styled(motion.svg)`
@@ -263,6 +255,69 @@ const HyperTxt = styled.span`
   color: blue;
   border-bottom: 1px solid;
   cursor: pointer;
+`;
+
+const ProgressInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 80%;
+  height: 2.5rem;
+  margin-top: 6rem;
+  margin-left: 3rem;
+`;
+
+const ProgressBar = styled.div`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-width: max-content;
+  height: 100%;
+  background-color: white;
+  border: 1.5px solid;
+  border-radius: 15px;
+`;
+
+const ProgressTxt = styled.span`
+  font-weight: 800;
+  white-space: nowrap;
+  flex: 1;
+  margin-right: 0.5rem;
+`;
+
+const ProgressStatusSvg = styled(motion.svg)`
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-top: 0.3%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  flex: none;
+`;
+
+const ProgressArrowSvg = styled(motion.svg)`
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 1%;
+  margin-right: 1%;
+`;
+
+const LogWrapper = styled.div`
+  width: 80%;
+  height: 15rem;
+  background-color: white;
+  border-radius: 15px;
+  margin-top: 2%;
+  margin-left: 4%;
+  margin-bottom: 2%;
+  font-weight: 700;
+`;
+
+const LogTxtWrapper = styled.div`
+  width: 97%;
+  height: 90%;
+  margin-top: 1%;
+  margin-left: 1%;
+  overflow-y: auto;
+  font-weight: 700;
 `;
 
 const Main = () => {
@@ -541,6 +596,211 @@ const Main = () => {
                 ) : null}
               </AppExplainTxtWrapper>
             </AppExplainWrapper>
+            <ProgressInfoWrapper>
+              <ProgressBar>
+                <ProgressStatusSvg
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11.5" cy="11.5" r="11.5" fill="#6DB33F" />
+                </ProgressStatusSvg>
+                <ProgressTxt>Set Up JDK</ProgressTxt>
+              </ProgressBar>
+              <ProgressArrowSvg
+                width="36"
+                height="16"
+                viewBox="0 0 36 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M35.7071 8.70711C36.0976 8.31658 36.0976 7.68342 35.7071 7.29289L29.3431 0.928932C28.9526 0.538408 28.3195 0.538408 27.9289 0.928932C27.5384 1.31946 27.5384 1.95262 27.9289 2.34315L33.5858 8L27.9289 13.6569C27.5384 14.0474 27.5384 14.6805 27.9289 15.0711C28.3195 15.4616 28.9526 15.4616 29.3431 15.0711L35.7071 8.70711ZM0 9H35V7H0V9Z"
+                  fill="black"
+                />
+              </ProgressArrowSvg>
+              <ProgressBar>
+                <ProgressStatusSvg
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11.5" cy="11.5" r="11.5" fill="#6DB33F" />
+                </ProgressStatusSvg>
+                <ProgressTxt>Set YML</ProgressTxt>
+              </ProgressBar>
+              <ProgressArrowSvg
+                width="36"
+                height="16"
+                viewBox="0 0 36 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M35.7071 8.70711C36.0976 8.31658 36.0976 7.68342 35.7071 7.29289L29.3431 0.928932C28.9526 0.538408 28.3195 0.538408 27.9289 0.928932C27.5384 1.31946 27.5384 1.95262 27.9289 2.34315L33.5858 8L27.9289 13.6569C27.5384 14.0474 27.5384 14.6805 27.9289 15.0711C28.3195 15.4616 28.9526 15.4616 29.3431 15.0711L35.7071 8.70711ZM0 9H35V7H0V9Z"
+                  fill="black"
+                />
+              </ProgressArrowSvg>
+              <ProgressBar>
+                <ProgressStatusSvg
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11.5" cy="11.5" r="11.5" fill="#6DB33F" />
+                </ProgressStatusSvg>
+                <ProgressTxt>Gradle Build</ProgressTxt>
+              </ProgressBar>
+              <ProgressArrowSvg
+                width="36"
+                height="16"
+                viewBox="0 0 36 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M35.7071 8.70711C36.0976 8.31658 36.0976 7.68342 35.7071 7.29289L29.3431 0.928932C28.9526 0.538408 28.3195 0.538408 27.9289 0.928932C27.5384 1.31946 27.5384 1.95262 27.9289 2.34315L33.5858 8L27.9289 13.6569C27.5384 14.0474 27.5384 14.6805 27.9289 15.0711C28.3195 15.4616 28.9526 15.4616 29.3431 15.0711L35.7071 8.70711ZM0 9H35V7H0V9Z"
+                  fill="black"
+                />
+              </ProgressArrowSvg>
+              <ProgressBar>
+                <ProgressStatusSvg
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11.5" cy="11.5" r="11.5" fill="#6DB33F" />
+                </ProgressStatusSvg>
+                <ProgressTxt>Docker Image Build</ProgressTxt>
+              </ProgressBar>
+            </ProgressInfoWrapper>
+            <ProgressInfoWrapper style={{ marginTop: "2%" }}>
+              <ProgressArrowSvg
+                width="36"
+                height="16"
+                viewBox="0 0 36 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ marginLeft: "1rem" }}
+              >
+                <path
+                  d="M35.7071 8.70711C36.0976 8.31658 36.0976 7.68342 35.7071 7.29289L29.3431 0.928932C28.9526 0.538408 28.3195 0.538408 27.9289 0.928932C27.5384 1.31946 27.5384 1.95262 27.9289 2.34315L33.5858 8L27.9289 13.6569C27.5384 14.0474 27.5384 14.6805 27.9289 15.0711C28.3195 15.4616 28.9526 15.4616 29.3431 15.0711L35.7071 8.70711ZM0 9H35V7H0V9Z"
+                  fill="black"
+                />
+              </ProgressArrowSvg>
+              <ProgressBar>
+                <ProgressStatusSvg
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11.5" cy="11.5" r="11.5" fill="#6DB33F" />
+                </ProgressStatusSvg>
+                <ProgressTxt>DockerHub Login</ProgressTxt>
+              </ProgressBar>
+              <ProgressArrowSvg
+                width="36"
+                height="16"
+                viewBox="0 0 36 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M35.7071 8.70711C36.0976 8.31658 36.0976 7.68342 35.7071 7.29289L29.3431 0.928932C28.9526 0.538408 28.3195 0.538408 27.9289 0.928932C27.5384 1.31946 27.5384 1.95262 27.9289 2.34315L33.5858 8L27.9289 13.6569C27.5384 14.0474 27.5384 14.6805 27.9289 15.0711C28.3195 15.4616 28.9526 15.4616 29.3431 15.0711L35.7071 8.70711ZM0 9H35V7H0V9Z"
+                  fill="black"
+                />
+              </ProgressArrowSvg>
+              <ProgressBar>
+                <ProgressStatusSvg
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11.5" cy="11.5" r="11.5" fill="#6DB33F" />
+                </ProgressStatusSvg>
+                <ProgressTxt>Docker Image Push</ProgressTxt>
+              </ProgressBar>
+              <ProgressArrowSvg
+                width="36"
+                height="16"
+                viewBox="0 0 36 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M35.7071 8.70711C36.0976 8.31658 36.0976 7.68342 35.7071 7.29289L29.3431 0.928932C28.9526 0.538408 28.3195 0.538408 27.9289 0.928932C27.5384 1.31946 27.5384 1.95262 27.9289 2.34315L33.5858 8L27.9289 13.6569C27.5384 14.0474 27.5384 14.6805 27.9289 15.0711C28.3195 15.4616 28.9526 15.4616 29.3431 15.0711L35.7071 8.70711ZM0 9H35V7H0V9Z"
+                  fill="black"
+                />
+              </ProgressArrowSvg>
+              <ProgressBar>
+                <ProgressStatusSvg
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11.5" cy="11.5" r="11.5" fill="#6DB33F" />
+                </ProgressStatusSvg>
+                <ProgressTxt>Docker Image Push</ProgressTxt>
+              </ProgressBar>
+            </ProgressInfoWrapper>
+            <LogWrapper>
+              <LogTxtWrapper>
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+                ddddddddddddddddddddddddddddddddddddddddd
+                <br />
+              </LogTxtWrapper>
+            </LogWrapper>
           </AppInfoWrapper>
           <AppInfoWrapper style={{ height: isAwsInfo ? "32rem" : "5rem" }}>
             <AppExplainWrapper>

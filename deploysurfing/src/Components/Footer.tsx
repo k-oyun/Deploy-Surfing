@@ -37,6 +37,7 @@ const FooterTextDiv = styled.div`
 const FooterText = styled.span`
   color: #8a8585;
   font-size: 0.7rem;
+  white-space: nowrap;
 `;
 
 const FooterBtnDiv = styled.div`

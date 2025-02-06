@@ -74,11 +74,12 @@ const UserMyPageOptions = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 7%;
+  width: 8.8vw;
   height: 13%;
-  margin-top: 10rem;
-  margin-left: 110rem;
+  margin-top: 17vh;
+  margin-left: 90%;
   background-color: rgb(59, 59, 59);
+  /* background-color: red; */
   border: 1px solid white;
   border-radius: 5%;
 `;
@@ -87,7 +88,7 @@ const UserMyPageOption = styled.div`
   display: flex;
   width: 55%;
   height: 25%;
-  margin-top: 0.4rem;
+  margin-top: 0.4vw;
   justify-content: center;
   align-items: center;
   cursor: pointer;
