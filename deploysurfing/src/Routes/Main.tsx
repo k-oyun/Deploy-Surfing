@@ -215,7 +215,7 @@ const AppSvg = styled(motion.svg)`
 
 const AppExplainWrapper = styled.div`
   display: flex;
-  width: 80%;
+  width: 70%;
   height: 5rem;
   position: absolute;
   margin-left: 2%;
@@ -321,7 +321,7 @@ const LogTxtWrapper = styled.div`
 `;
 const ProblemWrapper = styled.div`
   display: flex;
-  width: 80%;
+  width: 50%;
   height: 1rem;
   margin-left: 4%;
   margin-top: 0.4rem;
