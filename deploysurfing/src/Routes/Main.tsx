@@ -510,7 +510,7 @@ const Main = () => {
               </DetailInfoLeft>
               <DetailInfoRight>
                 <DetailInfoTxt>SpringBoot</DetailInfoTxt>
-                <DetailInfoTxt>실행중</DetailInfoTxt>
+                <DetailInfoTxt>배포중</DetailInfoTxt>
                 <DetailInfoTxt>
                   {isIpVisible ? myip : "*".repeat(myip.length)}
                   {isIpVisible ? (
