@@ -7,6 +7,7 @@ import Home from "./Routes/Home.tsx";
 import AddApp from "./Routes/AddApp.tsx";
 import MyPage from "./Routes/MyPage.tsx";
 import Main from "./Routes/Main.tsx";
+import Register from "./Routes/Register.tsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route Component={Home} path="/home" />
         <Route Component={Main} path="/main" />
         <Route Component={MyPage} path="/myPage" />
+        <Route Component={Register} path="/register" />
       </Routes>
     </Router>
   );

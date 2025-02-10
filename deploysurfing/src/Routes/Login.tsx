@@ -5,6 +5,7 @@ import Footer from "../Components/Footer.tsx";
 import { motion } from "framer-motion";
 import KakaoLoginNarrowImg from "../assets/images/kakao_login_medium_narrow.png";
 import KakaoLoginWideImg from "../assets/images/kakao_login_medium_wide.png";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
 
 const UserInfoWrapper = styled.div`
   width: 35rem;
-  height: 40rem;
+  height: 40.2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,27 +88,38 @@ const EyeSvg = styled(motion.svg)`
   margin-right: 0.5rem;
 `;
 
-const KakaoLogin = styled.div`
-  width: 15rem;
-  height: 2.4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.6rem;
-  background-color: #fffe30;
-  margin-top: 1rem;
-  color: #333333;
-  font-weight: 600;
-`;
-
 const Kakao = styled.img`
   margin-top: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+`;
+
+const TxtWrapper = styled.div`
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const ForgotPassword = styled.span`
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+const SignUp = styled.span`
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordCanSee] = useState("password");
+  const navigate = useNavigate();
 
   const onchangeId = (text) => {
     setId(text.target.value);
@@ -154,8 +166,19 @@ function Login() {
               </InputWrapper>
             </GitHubDocker>
             {/* 뭐로할까나~ */}
-            <Kakao src={KakaoLoginNarrowImg}></Kakao>
             <Kakao src={KakaoLoginWideImg}></Kakao>
+            <TxtWrapper>
+              <ForgotPassword>내 비밀번호를 모르겠어요</ForgotPassword>
+            </TxtWrapper>
+            <TxtWrapper>
+              <SignUp
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                회원가입
+              </SignUp>
+            </TxtWrapper>
           </UserInfo>
         </UserInfoWrapper>
       </Wrapper>
