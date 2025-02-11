@@ -115,6 +115,19 @@ const SignUp = styled.span`
   cursor: pointer;
 `;
 
+const LoginBtn = styled.button`
+  width: 59.7%;
+  height: 2.62rem;
+  color: white;
+  font-weight: 700;
+  font-size: 0.86rem;
+  margin-bottom: 1rem;
+  border: 0px;
+  border-radius: 7px;
+  background-color: ${(props) => props.theme.mainColor};
+  cursor: pointer;
+`;
+
 function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -186,6 +199,7 @@ function Login() {
             </GitHubDocker>
             {/* 뭐로할까나~ */}
             <Kakao src={KakaoLoginWideImg}></Kakao>
+            <LoginBtn>이메일로 로그인하기</LoginBtn>
             <TxtWrapper>
               <ForgotPassword>내 비밀번호를 모르겠어요</ForgotPassword>
             </TxtWrapper>
