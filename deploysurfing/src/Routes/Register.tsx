@@ -9,6 +9,82 @@ const Wrapper = styled.div`
   background-color: black;
 `;
 
+const Modal = styled.div`
+  display: flex;
+  width: 100%;
+  height: 40.2rem;
+  margin-top: 5%;
+  margin-bottom: 7%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0, 0.3);
+  position: absolute;
+`;
+
+const EmailVerifyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 11px;
+  background-color: #181818;
+  z-index: 1;
+  /* justify-content: center; */
+  align-items: center;
+`;
+
+const EmailVerifyTxt = styled.h1`
+  color: white;
+`;
+
+const EmailVerifyRowWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  justify-content: space-between;
+`;
+
+const EmailVerifyInput = styled.input`
+  width: 10rem;
+  height: 2rem;
+  border: none;
+  border-radius: 10px;
+  margin-left: 1rem;
+`;
+const EmailVerifyButton = styled.button`
+  width: 6rem;
+  height: 2rem;
+  border: none;
+  border-radius: 10px;
+  margin-left: 0.4rem;
+  margin-right: 0.9rem;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.mainColor};
+`;
+
+const EmailVerifyStatusTxt = styled.span`
+  /* padding-left: 1rem; */
+  padding-top: 1rem;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+`;
+
+const ResendVerificationCodeBtn = styled.button`
+  width: 87%;
+  height: 2rem;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  /* margin-left: 1rem; */
+  margin-top: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.mainColor};
+`;
+
 const UserInfoWrapper = styled.div`
   width: 35rem;
   height: 40.2rem;
@@ -129,11 +205,18 @@ const Register = () => {
 
   //---------------------------------------------
   const [isIdCanBeUsed, setIsIdCanBeUsed] = useState(false);
-  const [isIdDuplicated, setIsIdDuplicated] = useState(false);
+  const [isIdDuplicated, setIsIdDuplicated] = useState(true);
   const [isPasswordCanBeUsed, setIsPasswordCanBeUsed] = useState(false);
   const [idMessage, setIdMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordDuplicateMessage, setPasswordDuplicateMessage] = useState("");
+
+  //----------------------------------------------
+  const [isEmailVerifyPossible, setIsEmailVerifyPossible] = useState(false);
+  const [emailVerifyMessage, setEmailVerifyMessage] = useState("");
+  const [userTypeCode, setUserTypeCode] = useState("");
+
+  //----------------------------------------------
   const validateEmail = (email) => {
     const emailRegExp =
       /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -172,6 +255,9 @@ const Register = () => {
     }
   };
 
+  const onChangeEmailVerifyInput = (text) => {
+    setUserTypeCode(text.target.value);
+  };
   const EmailDuplicateCheck = () => {
     const test = "dhdbs1208@naver.com";
     if (test != id && isIdCanBeUsed) {
@@ -183,7 +269,6 @@ const Register = () => {
       setIsIdDuplicated(true);
     }
   };
-
   const isRegisterPos = () => {
     if (isIdCanBeUsed && isPasswordCanBeUsed && !isIdDuplicated) {
       return true;
@@ -192,10 +277,51 @@ const Register = () => {
     }
   };
 
+  const onClickResendBtn = () => {
+    setEmailVerifyMessage("인증번호가 재전송되었습니다.");
+    // setEmailVerifyMessage("인증번호가 일치하지 않아요!");
+  };
+  const authcode = "123456";
+  const CheckAuthCode = () => {
+    if (userTypeCode != authcode) {
+      setEmailVerifyMessage("인증번호가 일치하지않아요!");
+    }
+  };
+
   return (
     <>
       <Header />
       <Wrapper>
+        {isEmailVerifyPossible ? (
+          <Modal>
+            <EmailVerifyWrapper>
+              <EmailVerifyTxt>이메일 인증</EmailVerifyTxt>
+              <EmailVerifyRowWrapper>
+                <EmailVerifyInput
+                  onChange={(text) => {
+                    onChangeEmailVerifyInput(text);
+                  }}
+                ></EmailVerifyInput>
+                <EmailVerifyButton
+                  onClick={() => {
+                    CheckAuthCode();
+                  }}
+                >
+                  인증
+                </EmailVerifyButton>
+              </EmailVerifyRowWrapper>
+              <ResendVerificationCodeBtn
+                onClick={() => {
+                  onClickResendBtn();
+                }}
+              >
+                인증번호 재전송
+              </ResendVerificationCodeBtn>
+              <EmailVerifyStatusTxt>{emailVerifyMessage}</EmailVerifyStatusTxt>
+            </EmailVerifyWrapper>
+          </Modal>
+        ) : null}
+
         <UserInfoWrapper>
           <LogoTxt>Deploy Surfing</LogoTxt>
           <UserInfo>
@@ -214,7 +340,9 @@ const Register = () => {
                 <Message> {idMessage}</Message>
                 <EmailDuplicateCheckBtn
                   disabled={isIdCanBeUsed ? false : true}
-                  onClick={EmailDuplicateCheck}
+                  onClick={() => {
+                    EmailDuplicateCheck();
+                  }}
                 >
                   중복확인
                 </EmailDuplicateCheckBtn>
@@ -315,7 +443,12 @@ const Register = () => {
                 )}
               </InputWrapper>
               <ExplainTxt>{passwordDuplicateMessage}</ExplainTxt>
-              <RegisterBtn disabled={isRegisterPos() ? false : true}>
+              <RegisterBtn
+                onClick={() => {
+                  setIsEmailVerifyPossible(true);
+                }}
+                disabled={isRegisterPos() ? false : true}
+              >
                 회원가입
               </RegisterBtn>
             </GitHubDocker>
