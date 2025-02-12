@@ -120,11 +120,11 @@ const EyeSvg = styled(motion.svg)`
 `;
 
 function MyPage() {
-  const [gitHubToken, setGitHubToken] = useState(``);
-  const [awsRoleArn, setAWSRoleArn] = useState(``);
-  const [awsAccessKey, setAWSAccessKey] = useState(``);
-  const [awsSecretKey, setAWSSecretKey] = useState(``);
-  const [dockerHubToken, setDockerHubToken] = useState(``);
+  const [gitHubToken, setGitHubToken] = useState<string>(``);
+  const [awsRoleArn, setAWSRoleArn] = useState<string>(``);
+  const [awsAccessKey, setAWSAccessKey] = useState<string>(``);
+  const [awsSecretKey, setAWSSecretKey] = useState<string>(``);
+  const [dockerHubToken, setDockerHubToken] = useState<string>(``);
 
   const onChangeGitHub = (text: React.ChangeEvent<HTMLInputElement>) => {
     setGitHubToken(text.target.value);
@@ -145,16 +145,16 @@ function MyPage() {
   };
 
   //----------아이콘 누름 처리-------------
-  const [gitReady, setGitReady] = useState(false);
-  const [gitCanSee, setGitCanSee] = useState("password");
-  const [awsArnReady, setAwsArnReady] = useState(false);
-  const [awsArnCanSee, setAwsArnCanSee] = useState("password");
-  const [awsAcessReady, setAwsAcessReady] = useState(false);
-  const [awsAcessCanSee, setAwsAcessCanSee] = useState("password");
-  const [awsSecretReady, setAwsSecretReady] = useState(false);
-  const [awsSecretCanSee, setAwsSecretCanSee] = useState("password");
-  const [dockerReady, setDockerReady] = useState(false);
-  const [dockerCanSee, setDockerCanSee] = useState("password");
+  const [gitReady, setGitReady] = useState<boolean>(false);
+  const [gitCanSee, setGitCanSee] = useState<string>("password");
+  const [awsArnReady, setAwsArnReady] = useState<boolean>(false);
+  const [awsArnCanSee, setAwsArnCanSee] = useState<string>("password");
+  const [awsAcessReady, setAwsAcessReady] = useState<boolean>(false);
+  const [awsAcessCanSee, setAwsAcessCanSee] = useState<string>("password");
+  const [awsSecretReady, setAwsSecretReady] = useState<boolean>(false);
+  const [awsSecretCanSee, setAwsSecretCanSee] = useState<string>("password");
+  const [dockerReady, setDockerReady] = useState<boolean>(false);
+  const [dockerCanSee, setDockerCanSee] = useState<string>("password");
 
   //--------------------------------------------------------
   return (

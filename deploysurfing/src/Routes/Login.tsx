@@ -128,9 +128,10 @@ const LoginBtn = styled.button`
 `;
 
 function Login() {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [isPasswordVisible, setIsPasswordVisible] = useState("password");
+  const [id, setId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isPasswordVisible, setIsPasswordVisible] =
+    useState<string>("password");
   const navigate = useNavigate();
 
   const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {

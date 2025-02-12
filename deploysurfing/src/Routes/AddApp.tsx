@@ -171,7 +171,7 @@ function AddApp() {
             <InputText>Github Repository URL :</InputText>
             <Input onChange={onChangeUrl}></Input>
             <InputText>Framework :</InputText>
-            <InputSelect onChange={onChangeFramework} style={{}}>
+            <InputSelect onChange={onChangeFramework}>
               <option value="Spring">Spring Boot</option>
               <option value="Django">Django</option>
             </InputSelect>

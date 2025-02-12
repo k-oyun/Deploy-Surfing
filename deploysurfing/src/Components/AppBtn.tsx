@@ -65,7 +65,7 @@ const PowerBtnImg = styled.img`
   margin-left: -1px;
 `;
 function AppBtn() {
-  const [selectedApp, setSelectedApp] = useState("false");
+  const [selectedApp, setSelectedApp] = useState<string>("false");
   const [apps, setApps] = useState([
     {
       id: 1,

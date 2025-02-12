@@ -212,9 +212,10 @@ function Register() {
   const [passwordDuplicateMessage, setPasswordDuplicateMessage] = useState("");
 
   //----------------------------------------------
-  const [isEmailVerifyPossible, setIsEmailVerifyPossible] = useState(false);
-  const [emailVerifyMessage, setEmailVerifyMessage] = useState("");
-  const [userTypeCode, setUserTypeCode] = useState("");
+  const [isEmailVerifyPossible, setIsEmailVerifyPossible] =
+    useState<boolean>(false);
+  const [emailVerifyMessage, setEmailVerifyMessage] = useState<string>("");
+  const [userTypeCode, setUserTypeCode] = useState<string>("");
 
   //----------------------------------------------
   const validateEmail = (email: React.ChangeEvent<HTMLInputElement>) => {

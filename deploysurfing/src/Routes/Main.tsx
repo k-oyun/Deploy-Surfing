@@ -289,11 +289,11 @@ const EyeSvg = styled(motion.svg)`
 
 function Main() {
   const navigate = useNavigate();
-  const [isDetailInfo, setIsDetailInfo] = useState(false);
-  const [isGithubInfo, setIsGithubInfo] = useState(false);
-  const [isAwsInfo, setIsAwsInfo] = useState(false);
-  const [isDockerInfo, setIsDockerInfo] = useState(false);
-  const [isIpVisible, setIsIpVisible] = useState(false);
+  const [isDetailInfo, setIsDetailInfo] = useState<boolean>(false);
+  const [isGithubInfo, setIsGithubInfo] = useState<boolean>(false);
+  const [isAwsInfo, setIsAwsInfo] = useState<boolean>(false);
+  const [isDockerInfo, setIsDockerInfo] = useState<boolean>(false);
+  const [isIpVisible, setIsIpVisible] = useState<boolean>(false);
   var myip = "12342.23123.4";
 
   const onClickInfoButton = () => {
