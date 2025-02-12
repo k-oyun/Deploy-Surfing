@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../Components/Header.tsx";
-import Footer from "../Components/Footer.tsx";
-import { Link, useNavigate } from "react-router-dom";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import PowerButton from "../assets/images/powerbutton.png";
-import App from "../App";
-import AppBtn from "../Components/AppBtn.tsx";
+import AppBtn from "../Components/AppBtn";
 const Wrapper = styled.div`
   display: flex;
   min-height: 100vh;

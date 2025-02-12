@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../Components/Header.tsx";
-import Footer from "../Components/Footer.tsx";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 const Wrapper = styled.div`
   display: flex;
@@ -217,7 +217,7 @@ function Register() {
   const [userTypeCode, setUserTypeCode] = useState("");
 
   //----------------------------------------------
-  const validateEmail = (email) => {
+  const validateEmail = (email: React.ChangeEvent<HTMLInputElement>) => {
     const emailRegExp =
       /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
 
@@ -230,7 +230,7 @@ function Register() {
     }
   };
 
-  const validatePassword = (password) => {
+  const validatePassword = (password: React.ChangeEvent<HTMLInputElement>) => {
     const passwordRegExp = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&]).{8,64}$/;
     if (!passwordRegExp.test(password.target.value)) {
       setPasswordMessage("올바른 비밀번호 형식을 입력해주세요.");
@@ -239,15 +239,17 @@ function Register() {
     }
   };
 
-  const onchangeId = (text) => {
+  const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {
     setId(text.target.value);
   };
-  const onchangePassword = (text) => {
+  const onchangePassword = (text: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(text.target.value);
   };
 
-  const onChangePasswordDuplicateCheck = (text) => {
-    if (password == text.target.value) {
+  const onChangePasswordDuplicateCheck = (
+    text: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (password === text.target.value) {
       setPasswordDuplicateMessage("비밀번호가 일치합니다!");
       setIsPasswordCanBeUsed(true);
     } else {
@@ -255,16 +257,18 @@ function Register() {
     }
   };
 
-  const onChangeEmailVerifyInput = (text) => {
+  const onChangeEmailVerifyInput = (
+    text: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setUserTypeCode(text.target.value);
   };
   const EmailDuplicateCheck = () => {
     const test = "dhdbs1208@naver.com";
-    if (test != id && isIdCanBeUsed) {
+    if (test !== id && isIdCanBeUsed) {
       setIdMessage("사용할 수 있는 이메일이에요.");
       setIsIdDuplicated(false);
     }
-    if (test == id) {
+    if (test === id) {
       setIdMessage("이미 사용하고 있는 이메일이에요.");
       setIsIdDuplicated(true);
     }
@@ -283,7 +287,7 @@ function Register() {
   };
   const authcode = "123456";
   const CheckAuthCode = () => {
-    if (userTypeCode != authcode) {
+    if (userTypeCode !== authcode) {
       setEmailVerifyMessage("인증번호가 일치하지않아요!");
     }
   };
@@ -357,7 +361,7 @@ function Register() {
                     validatePassword(text);
                   }}
                 ></ImpInput>
-                {isPasswordVisible == "password" ? (
+                {isPasswordVisible === "password" ? (
                   <EyeSvg
                     width="26"
                     height="22"
@@ -404,7 +408,7 @@ function Register() {
                     onChangePasswordDuplicateCheck(text);
                   }}
                 ></ImpInput>
-                {isPasswordCheckVisible == "password" ? (
+                {isPasswordCheckVisible === "password" ? (
                   <EyeSvg
                     width="26"
                     height="22"

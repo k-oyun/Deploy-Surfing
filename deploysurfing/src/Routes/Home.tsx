@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import BackgroundImage from "../assets/images/background.png";
 import DefloyLogo from "../assets/images/logo.png";
 import SubImage from "../assets/images/subImage.png";
-import Header from "../Components/Header.tsx";
-import Footer from "../Components/Footer.tsx";
-import { useNavigate, useNavigation } from "react-router-dom";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const MainWrapper = styled.div`
   display: flex;

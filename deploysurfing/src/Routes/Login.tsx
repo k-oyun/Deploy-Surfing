@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../Components/Header.tsx";
-import Footer from "../Components/Footer.tsx";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
-import KakaoLoginNarrowImg from "../assets/images/kakao_login_medium_narrow.png";
 import KakaoLoginWideImg from "../assets/images/kakao_login_medium_wide.png";
 import { useNavigate } from "react-router-dom";
 
@@ -134,10 +133,10 @@ function Login() {
   const [isPasswordVisible, setIsPasswordVisible] = useState("password");
   const navigate = useNavigate();
 
-  const onchangeId = (text) => {
+  const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {
     setId(text.target.value);
   };
-  const onchangePassword = (text) => {
+  const onchangePassword = (text: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(text.target.value);
   };
   return (
@@ -158,7 +157,7 @@ function Login() {
                   type={isPasswordVisible}
                   onChange={onchangePassword}
                 ></ImpInput>
-                {isPasswordVisible == "password" ? (
+                {isPasswordVisible === "password" ? (
                   <EyeSvg
                     width="26"
                     height="22"

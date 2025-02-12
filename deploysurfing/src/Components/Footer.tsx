@@ -21,12 +21,6 @@ const FooterLogoTxt = styled.span`
   font-size: 0.9rem;
   margin-left: 0.9rem;
 `;
-const FooterLogoImg = styled.img`
-  width: 110px;
-  height: 35px;
-  margin-left: 20px;
-  margin-top: 5px;
-`;
 
 const FooterTextDiv = styled.div`
   flex: 1;

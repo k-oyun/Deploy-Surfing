@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Header from "../Components/Header.tsx";
+import Header from "../Components/Header";
 import styled from "styled-components";
-import Footer from "../Components/Footer.tsx";
+import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 const Wrapper = styled.div`
   display: flex;
@@ -126,19 +126,21 @@ function MyPage() {
   const [awsSecretKey, setAWSSecretKey] = useState(``);
   const [dockerHubToken, setDockerHubToken] = useState(``);
 
-  const onChangeGitHub = (text) => {
+  const onChangeGitHub = (text: React.ChangeEvent<HTMLInputElement>) => {
     setGitHubToken(text.target.value);
   };
-  const onChangeAWSArn = (text) => {
+  const onChangeAWSArn = (text: React.ChangeEvent<HTMLInputElement>) => {
     setAWSRoleArn(text.target.value);
   };
-  const onChangeAWSAccessKey = (text) => {
+  const onChangeAWSAccessKey = (text: React.ChangeEvent<HTMLInputElement>) => {
     setAWSAccessKey(text.target.value);
   };
-  const onChangeAWSSecretKey = (text) => {
+  const onChangeAWSSecretKey = (text: React.ChangeEvent<HTMLInputElement>) => {
     setAWSSecretKey(text.target.value);
   };
-  const onChangeDockerHubToken = (text) => {
+  const onChangeDockerHubToken = (
+    text: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setDockerHubToken(text.target.value);
   };
 
@@ -188,7 +190,7 @@ function MyPage() {
                   fill="black"
                 />
               </PencilSvg>
-              {gitCanSee == "text" ? (
+              {gitCanSee === "text" ? (
                 <EyeSvg
                   width="25"
                   height="23"
@@ -251,7 +253,7 @@ function MyPage() {
                   fill="black"
                 />
               </PencilSvg>
-              {awsArnCanSee == "text" ? (
+              {awsArnCanSee === "text" ? (
                 <EyeSvg
                   width="25"
                   height="23"
@@ -313,7 +315,7 @@ function MyPage() {
                   fill="black"
                 />
               </PencilSvg>
-              {awsAcessCanSee == "text" ? (
+              {awsAcessCanSee === "text" ? (
                 <EyeSvg
                   width="25"
                   height="23"
@@ -375,7 +377,7 @@ function MyPage() {
                   fill="black"
                 />
               </PencilSvg>
-              {awsSecretCanSee == "text" ? (
+              {awsSecretCanSee === "text" ? (
                 <EyeSvg
                   width="25"
                   height="23"
@@ -438,7 +440,7 @@ function MyPage() {
                   fill="black"
                 />
               </PencilSvg>
-              {dockerCanSee == "text" ? (
+              {dockerCanSee === "text" ? (
                 <EyeSvg
                   width="25"
                   height="23"

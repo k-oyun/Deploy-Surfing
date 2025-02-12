@@ -51,7 +51,7 @@ const PowerBtn = styled.div`
 const Power = styled(motion.svg)<PowerProps>`
   width: 38px;
   height: 30px;
-  fill: ${(props) => (props.ispoweron == "true" ? "#6DB33F" : "#fc8787")};
+  fill: ${(props) => (props.ispoweron === "true" ? "#6DB33F" : "#fc8787")};
   z-index: 100;
   position: absolute;
 `;
@@ -76,7 +76,7 @@ function AppBtn() {
     { id: 2, name: "해커톤 2팀", framework: "Django", ispoweron: "false" },
     { id: 3, name: "App 3", framework: "Spring Boot", ispoweron: "false" },
   ]);
-  const onClickAppButton = (appName) => {
+  const onClickAppButton = (appName: string) => {
     setSelectedApp(appName);
   };
 
@@ -86,7 +86,7 @@ function AppBtn() {
         <UserAppBtn
           key={app.id}
           onClick={() => onClickAppButton(app.name)}
-          isselected={(selectedApp == app.name) == true || false}
+          isselected={(selectedApp === app.name) === true || false}
         >
           <PowerBtn>
             <Power

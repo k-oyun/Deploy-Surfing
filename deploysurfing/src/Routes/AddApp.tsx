@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import File from "../assets/images/file-lines-solid 1.png";
-import Header from "../Components/Header.tsx";
-import { theme } from "../theme";
-import Footer from "../Components/Footer.tsx";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const Wrapper = styled.div`
   display: flex;
@@ -125,28 +124,33 @@ const CompleteButton = styled.button`
 `;
 
 function AddApp() {
-  const [appName, setAppName] = useState();
-  const [url, setUrl] = useState();
-  const [framework, setFramework] = useState(null);
-  const [fileName, setFileName] = useState("파일을 업로드하세요.");
+  const [appName, setAppName] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
+  const [framework, setFramework] = useState<string>("");
+  const [fileName, setFileName] = useState<string>("파일을 업로드하세요.");
 
-  const onChangeAppName = (text) => {
+  const onChangeAppName = (text: React.ChangeEvent<HTMLInputElement>) => {
     setAppName(text.target.value);
   };
 
-  const onChangeUrl = (text) => {
+  const onChangeUrl = (text: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(text.target.value);
   };
 
-  const onChangeFramework = (framework) => {
+  const onChangeFramework = (
+    framework: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setFramework(framework.target.value);
   };
 
-  const onChangeFile = (file) => {
-    setFileName(file.target.files[0].name);
+  const onChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setFileName(file.name); // 파일 이름 상태 업데이트
+    }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const appInfo = new FormData();

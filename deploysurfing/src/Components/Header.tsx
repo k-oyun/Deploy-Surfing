@@ -14,13 +14,13 @@ const Nav = styled(motion.nav)`
   background-color: rgb(59, 59, 59);
 `;
 
-const OpenSidebar = styled(motion.svg)`
-  width: 2.5rem;
-  height: 1.5rem;
-  fill: #11e5b3;
-  padding: 10px;
-  cursor: pointer;
-`;
+// const OpenSidebar = styled(motion.svg)`
+//   width: 2.5rem;
+//   height: 1.5rem;
+//   fill: #11e5b3;
+//   padding: 10px;
+//   cursor: pointer;
+// `;
 
 const Col = styled.div`
   display: flex;
@@ -101,10 +101,9 @@ const UserMyPageOptionTxt = styled.span`
 `;
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
-
   const [isUserOptionClicked, setIsUserOptionClicked] = useState(false);
 
   const onClickUserLogo = () => {
