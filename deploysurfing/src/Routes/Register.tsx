@@ -17,7 +17,7 @@ const Modal = styled.div`
   margin-bottom: 7%;
   justify-content: center;
   align-items: center;
-  background-color: rgb(0, 0, 0, 0.3);
+  background-color: rgb(0, 0, 0, 0.8);
   position: absolute;
 `;
 
