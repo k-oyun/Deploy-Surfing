@@ -1,7 +1,7 @@
-import {symlinkSync} from "fs";
-import React, {useEffect} from "react";
+import { symlinkSync } from "fs";
+import React, { useEffect } from "react";
 
-import {styled} from "styled-components";
+import { styled } from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
@@ -104,7 +104,7 @@ const AppStopSvg = styled.svg``;
 
 const Logo = styled.image``;
 
-function Login() {
+function MyApp() {
   return (
     <Wrapper>
       <AvoidSidebar>
@@ -156,4 +156,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default MyApp;

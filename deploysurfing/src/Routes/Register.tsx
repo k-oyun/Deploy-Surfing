@@ -196,7 +196,7 @@ const RegisterBtn = styled.button`
   background-color: ${(props) => props.theme.mainColor};
   cursor: pointer;
 `;
-const Register = () => {
+function Register() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState("password");
@@ -458,6 +458,6 @@ const Register = () => {
       <Footer />
     </>
   );
-};
+}
 
 export default Register;

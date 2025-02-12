@@ -119,7 +119,7 @@ const EyeSvg = styled(motion.svg)`
   margin-right: 0.5rem;
 `;
 
-const MyPage = () => {
+function MyPage() {
   const [gitHubToken, setGitHubToken] = useState(``);
   const [awsRoleArn, setAWSRoleArn] = useState(``);
   const [awsAccessKey, setAWSAccessKey] = useState(``);
@@ -486,6 +486,6 @@ const MyPage = () => {
       <Footer />
     </>
   );
-};
+}
 
 export default MyPage;

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import PowerButton from "../assets/images/powerbutton.png";
 import App from "../App";
+import AppBtn from "../Components/AppBtn.tsx";
 const Wrapper = styled.div`
   display: flex;
   min-height: 100vh;
@@ -48,60 +49,6 @@ const NewAppSvg = styled(motion.svg)`
   height: 1.5rem;
   fill: black;
   padding: 0.3rem;
-`;
-
-const UserAppBtn = styled.button`
-  display: flex;
-  align-items: center;
-  margin-top: 1.2rem;
-  margin-bottom: 0.3;
-  width: 15rem;
-  height: 3.5rem;
-  border: 3px solid;
-  border-radius: 15px;
-  border-color: ${(props) => (props.isSelected ? "#11E5B3" : "#D5D5D5")};
-  background-color: #d5d5d5;
-  cursor: pointer;
-`;
-
-const AppBtnTextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  height: 30px;
-  margin-left: 10px;
-`;
-
-const AppBtnText = styled.span``;
-
-const PowerBtn = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0px;
-  background-color: transparent;
-  display: flex;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-`;
-
-const Power = styled(motion.svg)`
-  width: 38px;
-  height: 30px;
-  fill: ${(props) => (props.isPowerOn ? "#6DB33F" : "#fc8787")};
-  z-index: 100;
-  position: absolute;
-`;
-
-const PowerBtnImg = styled.img`
-  position: absolute;
-  z-index: 500;
-  width: 19px;
-  height: 19px;
-  margin-bottom: 2px;
-  margin-left: -1px;
 `;
 
 const DeployInfoWrappers = styled.div`
@@ -342,37 +289,14 @@ const EyeSvg = styled(motion.svg)`
   margin-left: 0.5rem;
 `;
 
-const Main = () => {
+function Main() {
   const navigate = useNavigate();
-  const [selectedApp, setSelectedApp] = useState(null);
   const [isDetailInfo, setIsDetailInfo] = useState(false);
   const [isGithubInfo, setIsGithubInfo] = useState(false);
   const [isAwsInfo, setIsAwsInfo] = useState(false);
   const [isDockerInfo, setIsDockerInfo] = useState(false);
   const [isIpVisible, setIsIpVisible] = useState(false);
   var myip = "12342.23123.4";
-  const [apps, setApps] = useState([
-    {
-      id: 1,
-      name: "DefloySurfing",
-      framework: "Spring Boot",
-      isPowerOn: false,
-    },
-    { id: 2, name: "해커톤 2팀", framework: "Django", isPowerOn: false },
-    { id: 3, name: "App 3", framework: "Spring Boot", isPowerOn: false },
-  ]);
-
-  const onClickAppButton = (appName) => {
-    setSelectedApp(appName);
-  };
-
-  const onClickPower = (appId) => {
-    setApps((prevApps) =>
-      prevApps.map((app) =>
-        app.id === appId ? { ...app, isPowerOn: !app.isPowerOn } : app
-      )
-    );
-  };
 
   const onClickInfoButton = () => {
     setIsDetailInfo((prev) => !prev);
@@ -404,47 +328,7 @@ const Main = () => {
             </NewAppSvg>
             <NewAppBtnText>새 앱 추가</NewAppBtnText>
           </NewAppBtn>
-          {apps.map((app) => (
-            <UserAppBtn
-              key={app.id}
-              onClick={() => onClickAppButton(app.name)}
-              isSelected={selectedApp === app.name}
-            >
-              <PowerBtn onClick={() => onClickPower(app.id)}>
-                <Power
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="45"
-                  height="45"
-                  viewBox="0 0 45 45"
-                  isPowerOn={app.isPowerOn} //isPowerOn 프롭으로 각 앱의 파워 상태 전달
-                >
-                  <circle cx="22.5" cy="22.5" r="22.5" />
-                </Power>
-                <PowerBtnImg src={PowerButton}></PowerBtnImg>
-              </PowerBtn>
-
-              <AppBtnTextWrapper>
-                <AppBtnText
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 800,
-                  }}
-                >
-                  {app.name}
-                </AppBtnText>
-                <AppBtnText
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 800,
-                    color:
-                      app.framework === "Spring Boot" ? "#6DB33F" : "#3B6DEB",
-                  }}
-                >
-                  {app.framework}
-                </AppBtnText>
-              </AppBtnTextWrapper>
-            </UserAppBtn>
-          ))}
+          <AppBtn />
         </Sidebar>
         <DeployInfoWrappers>
           <DeployInfoWrapper
@@ -1258,6 +1142,6 @@ const Main = () => {
       <Footer />
     </>
   );
-};
+}
 
 export default Main;
