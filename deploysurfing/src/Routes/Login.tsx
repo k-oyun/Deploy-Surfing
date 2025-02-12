@@ -88,12 +88,6 @@ const EyeSvg = styled(motion.svg)`
   margin-right: 0.5rem;
 `;
 
-const Kakao = styled.img`
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  cursor: pointer;
-`;
-
 const TxtWrapper = styled.div`
   width: 100%;
   height: 2rem;
@@ -114,14 +108,20 @@ const SignUp = styled.span`
   text-decoration: underline;
   cursor: pointer;
 `;
-
+const Kakao = styled.img`
+  margin-bottom: 1rem;
+  cursor: pointer;
+`;
 const LoginBtn = styled.button`
   width: 59.7%;
   height: 2.62rem;
   color: white;
   font-weight: 700;
   font-size: 0.86rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
+  padding-top: 0.3rem;
+  padding-left: 1.7rem;
   border: 0px;
   border-radius: 7px;
   background-color: ${(props) => props.theme.mainColor};
@@ -198,10 +198,11 @@ function Login() {
               </InputWrapper>
             </GitHubDocker>
             {/* 뭐로할까나~ */}
+            <LoginBtn>Login with Email</LoginBtn>
             <Kakao src={KakaoLoginWideImg}></Kakao>
-            <LoginBtn>이메일로 로그인하기</LoginBtn>
+
             <TxtWrapper>
-              <ForgotPassword>내 비밀번호를 모르겠어요</ForgotPassword>
+              <ForgotPassword>비밀번호 찾기</ForgotPassword>
             </TxtWrapper>
             <TxtWrapper>
               <SignUp
