@@ -1,14 +1,17 @@
 import { motion, SVGMotionProps } from "framer-motion";
 import React, { useState } from "react";
 import styled from "styled-components";
-
 import PowerButton from "../assets/images/powerbutton.png";
 interface PowerProps extends SVGMotionProps<SVGSVGElement> {
   ispoweron?: string;
 }
+interface UserAppBtnProps {
+  isselected?: boolean;
+}
+
 const UserAppBtn = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "isselected", //스타일링에만 적용 Dom에는 전송되지 않도록
-})`
+})<UserAppBtnProps>`
   display: flex;
   align-items: center;
   margin-top: 1.2rem;
@@ -17,8 +20,7 @@ const UserAppBtn = styled.button.withConfig({
   height: 3.5rem;
   border: 3px solid;
   border-radius: 15px;
-  border-color: ${(props) =>
-    props.isselected.toString() == "true" ? "#11E5B3" : "#D5D5D5"};
+  border-color: ${(props) => (props.isselected ? "#11E5B3" : "#D5D5D5")};
   background-color: #d5d5d5;
   cursor: pointer;
 `;
@@ -92,7 +94,7 @@ function AppBtn() {
         <UserAppBtn
           key={app.id}
           onClick={() => onClickAppButton(app.name)}
-          isselected={(selectedApp == app.name).toString()}
+          isselected={(selectedApp == app.name) == true || false}
         >
           <PowerBtn>
             <Power
