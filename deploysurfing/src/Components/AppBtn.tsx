@@ -5,13 +5,13 @@ import PowerButton from "../assets/images/powerbutton.png";
 interface PowerProps extends SVGMotionProps<SVGSVGElement> {
   ispoweron?: string;
 }
-interface UserAppBtnProps {
+interface styleType {
   isselected?: boolean;
 }
 
 const UserAppBtn = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "isselected", //스타일링에만 적용 Dom에는 전송되지 않도록
-})<UserAppBtnProps>`
+})<styleType>`
   display: flex;
   align-items: center;
   margin-top: 1.2rem;
@@ -79,14 +79,6 @@ function AppBtn() {
   const onClickAppButton = (appName) => {
     setSelectedApp(appName);
   };
-
-  // const onClickPower = (appId) => {
-  //   setApps((prevApps) =>
-  //     prevApps.map((app) =>
-  //       app.id === appId ? { ...app, ispoweron: !app.ispoweron } : app
-  //     )
-  //   );
-  // };
 
   return (
     <>
