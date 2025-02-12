@@ -6,7 +6,9 @@ import PowerButton from "../assets/images/powerbutton.png";
 interface PowerProps extends SVGMotionProps<SVGSVGElement> {
   ispoweron?: string;
 }
-const UserAppBtn = styled.button`
+const UserAppBtn = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "isselected", //스타일링에만 적용 Dom에는 전송되지 않도록
+})`
   display: flex;
   align-items: center;
   margin-top: 1.2rem;
