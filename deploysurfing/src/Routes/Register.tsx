@@ -58,7 +58,7 @@ const EmailVerifyButton = styled.button`
   border-radius: 10px;
   margin-left: 0.4rem;
   margin-right: 0.9rem;
-  color: white;
+  color: black;
   font-weight: 700;
   cursor: pointer;
   background-color: ${(props) => props.theme.mainColor};
@@ -77,7 +77,7 @@ const ResendVerificationCodeBtn = styled.button`
   height: 2rem;
   border: none;
   border-radius: 10px;
-  color: white;
+  color: black;
   /* margin-left: 1rem; */
   margin-top: 1rem;
   font-weight: 700;
@@ -193,7 +193,17 @@ const RegisterBtn = styled.button`
   border-radius: 11px;
   font-size: 1.2rem;
   font-weight: 800;
+  /* color: white; */
   background-color: ${(props) => props.theme.mainColor};
+  cursor: pointer;
+`;
+
+const CloseModalSvg = styled(motion.svg)`
+  display: flex;
+  width: 1rem;
+  margin-left: 117rem;
+  margin-bottom: 50rem;
+  position: absolute;
   cursor: pointer;
 `;
 function Register() {
@@ -289,7 +299,7 @@ function Register() {
   const authcode = "123456";
   const CheckAuthCode = () => {
     if (userTypeCode !== authcode) {
-      setEmailVerifyMessage("인증번호가 일치하지않아요!");
+      setEmailVerifyMessage("인증번호가 일치하지 않아요!");
     }
   };
 
@@ -299,6 +309,16 @@ function Register() {
       <Wrapper>
         {isEmailVerifyPossible ? (
           <Modal>
+            <CloseModalSvg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
+              onClick={() => setIsEmailVerifyPossible(false)}
+            >
+              <path
+                d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"
+                fill="white"
+              />
+            </CloseModalSvg>
             <EmailVerifyWrapper>
               <EmailVerifyTxt>이메일 인증</EmailVerifyTxt>
               <EmailVerifyRowWrapper>
@@ -344,7 +364,7 @@ function Register() {
               <MessageWrapper>
                 <Message> {idMessage}</Message>
                 <EmailDuplicateCheckBtn
-                  disabled={isIdCanBeUsed ? false : true}
+                  disabled={!isIdCanBeUsed}
                   onClick={() => {
                     EmailDuplicateCheck();
                   }}

@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 import KakaoLoginWideImg from "../assets/images/kakao_login_medium_wide.png";
 import { useNavigate } from "react-router-dom";
+
+interface styleType {
+  isPasswordResetPossible?: boolean;
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -114,9 +118,9 @@ const Kakao = styled.img`
 const LoginBtn = styled.button`
   width: 59.7%;
   height: 2.62rem;
-  color: white;
-  font-weight: 700;
-  font-size: 0.86rem;
+  color: black;
+  font-weight: 400;
+  font-size: 0.9rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding-top: 0.3rem;
@@ -127,11 +131,92 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
+const Modal = styled.div`
+  display: flex;
+  width: 100%;
+  height: 40.2rem;
+  margin-top: 5%;
+  margin-bottom: 7%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0, 0.8);
+  position: absolute;
+`;
+
+const EmailVerifyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 11px;
+  background-color: #181818;
+  z-index: 1;
+  /* justify-content: center; */
+  align-items: center;
+`;
+
+const EmailVerifyTxt = styled.h1`
+  color: white;
+`;
+
+const EmailVerifyRowWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  justify-content: space-between;
+`;
+
+const EmailVerifyInput = styled.input`
+  width: 12.8rem;
+  height: 2rem;
+  border: none;
+  border-radius: 10px;
+  margin-left: 1rem;
+  padding-left: 0.5rem;
+  &::placeholder {
+    color: rgb(0, 0, 0, 0.2);
+  }
+`;
+
+const EmailVerifyStatusTxt = styled.span`
+  /* padding-left: 1rem; */
+  padding-top: 1rem;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+`;
+
+const ResendVerificationCodeBtn = styled.button<styleType>`
+  width: 87%;
+  height: 2rem;
+  border: none;
+  border-radius: 10px;
+  color: ${(props) => (props.isPasswordResetPossible ? "black" : "grey")};
+  margin-top: 1rem;
+  font-weight: 700;
+  cursor: ${(props) => (props.isPasswordResetPossible ? "pointer" : "default")};
+  background-color: ${(props) => props.theme.mainColor};
+`;
+
+const CloseModalSvg = styled(motion.svg)`
+  display: flex;
+  width: 1rem;
+  margin-left: 117rem;
+  margin-bottom: 50rem;
+  position: absolute;
+  cursor: pointer;
+`;
+
 function Login() {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [isPasswordVisible, setIsPasswordVisible] =
-    useState<string>("password");
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [emailVerifyMessage, setEmailVerifyMessage] = useState<string>("");
+  const [isPasswordResetPossible, setIsPasswordResetPossible] =
+    useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<
+    "password" | "text"
+  >("password");
   const navigate = useNavigate();
 
   const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,10 +225,70 @@ function Login() {
   const onchangePassword = (text: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(text.target.value);
   };
+
+  const onClickSendResetMail = () => {
+    if (isPasswordResetPossible && id.length !== 0) {
+      setEmailVerifyMessage("재설정 메일을 보내드렸어요!");
+    } else {
+      setEmailVerifyMessage("올바른 이메일 형식을 입력해주세요.");
+    }
+  };
+
+  const validateEmail = (email: React.ChangeEvent<HTMLInputElement>) => {
+    const emailRegExp =
+      /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+
+    if (!emailRegExp.test(email.target.value)) {
+      setEmailVerifyMessage("올바른 이메일 형식을 입력해주세요.");
+      setIsPasswordResetPossible(false);
+    } else {
+      setEmailVerifyMessage("올바른 이메일 형식입니다. ");
+      setIsPasswordResetPossible(true);
+    }
+  };
+  useEffect(() => {
+    console.log("isPasswordResetPossible 상태 변경:", isPasswordResetPossible);
+  }, [isPasswordResetPossible]);
+
   return (
     <>
       <Header />
       <Wrapper>
+        {isModalVisible ? (
+          <Modal>
+            <CloseModalSvg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
+              onClick={() => setIsModalVisible(false)}
+            >
+              <path
+                d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"
+                fill="white"
+              />
+            </CloseModalSvg>
+            <EmailVerifyWrapper>
+              <EmailVerifyTxt>비밀번호 재설정</EmailVerifyTxt>
+              <EmailVerifyRowWrapper>
+                <EmailVerifyInput
+                  placeholder="defloySurfing@google.com"
+                  onChange={(text) => {
+                    onchangeId(text);
+                    validateEmail(text);
+                  }}
+                ></EmailVerifyInput>
+              </EmailVerifyRowWrapper>
+              <ResendVerificationCodeBtn
+                isPasswordResetPossible={isPasswordResetPossible}
+                onClick={() => {
+                  onClickSendResetMail();
+                }}
+              >
+                비밀번호 재설정
+              </ResendVerificationCodeBtn>
+              <EmailVerifyStatusTxt>{emailVerifyMessage}</EmailVerifyStatusTxt>
+            </EmailVerifyWrapper>
+          </Modal>
+        ) : null}
         <UserInfoWrapper>
           <LogoTxt>Deploy Surfing</LogoTxt>
           <UserInfo>
@@ -202,7 +347,13 @@ function Login() {
             <Kakao src={KakaoLoginWideImg}></Kakao>
 
             <TxtWrapper>
-              <ForgotPassword>비밀번호 찾기</ForgotPassword>
+              <ForgotPassword
+                onClick={() => {
+                  setIsModalVisible(true);
+                }}
+              >
+                비밀번호 찾기
+              </ForgotPassword>
             </TxtWrapper>
             <TxtWrapper>
               <SignUp
