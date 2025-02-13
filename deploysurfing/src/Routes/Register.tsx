@@ -213,20 +213,24 @@ const CloseModalSvg = styled(motion.svg)`
 `;
 
 function Register() {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [isPasswordVisible, setIsPasswordVisible] = useState("password");
-  const [isPasswordCheckVisible, setIsPasswordCheckVisible] =
-    useState("password");
+  const [id, setId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordCheck, setPasswordCheck] = useState<string>("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState<
+    "password" | "text"
+  >("password");
+  const [isPasswordCheckVisible, setIsPasswordCheckVisible] = useState<
+    "password" | "text"
+  >("password");
 
   //---------------------------------------------
   const [isIdCanBeUsed, setIsIdCanBeUsed] = useState<boolean>(false);
   const [isIdDuplicated, setIsIdDuplicated] = useState(true);
   const [isPasswordCanBeUsed, setIsPasswordCanBeUsed] = useState(false);
-  const [idMessage, setIdMessage] = useState("");
-  const [passwordMessage, setPasswordMessage] = useState("");
-  const [passwordDuplicateMessage, setPasswordDuplicateMessage] = useState("");
+  const [idMessage, setIdMessage] = useState<string>("");
+  const [passwordMessage, setPasswordMessage] = useState<string>("");
+  const [passwordDuplicateMessage, setPasswordDuplicateMessage] =
+    useState<string>("");
   const [isRegisterPossible, setIsRegisterPossible] = useState(false);
 
   //----------------------------------------------
@@ -270,7 +274,10 @@ function Register() {
   };
 
   const PasswordDuplicateCheck = () => {
-    if (password === passwordCheck) {
+    if (password.length === 0 || passwordCheck.length === 0) {
+      setPasswordDuplicateMessage("");
+      setIsPasswordCanBeUsed(false);
+    } else if (password === passwordCheck) {
       setPasswordDuplicateMessage("비밀번호가 일치합니다!");
       setIsPasswordCanBeUsed(true);
     } else {
