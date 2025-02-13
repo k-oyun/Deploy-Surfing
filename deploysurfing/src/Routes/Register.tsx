@@ -5,8 +5,8 @@ import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 
 interface styleType {
-  isregisterpos?: string;
-  isidcanbeused?: string;
+  $isregisterpos?: string;
+  $isidcanbeused?: string;
 }
 const Wrapper = styled.div`
   display: flex;
@@ -177,23 +177,19 @@ const Message = styled.span`
   color: white;
 `;
 
-const EmailDuplicateCheckBtn = styled.button.withConfig({
-  shouldForwardProp: (prop) => prop !== "isidcanbeused", //스타일링에만 적용 Dom에는 전송되지 않도록
-})<styleType>`
+const EmailDuplicateCheckBtn = styled.button<styleType>`
   width: 18%;
   height: 1.4rem;
   border: 1px;
   border-radius: 5px;
   font-weight: 800;
   cursor: ${(props) =>
-    props.isidcanbeused === "true" ? "pointer" : "default"};
+    props.$isidcanbeused === "true" ? "pointer" : "default"};
 
   background-color: ${(props) => props.theme.mainColor};
 `;
 
-const RegisterBtn = styled.button.withConfig({
-  shouldForwardProp: (prop) => prop !== "isRegisterPos", //스타일링에만 적용 Dom에는 전송되지 않도록
-})<styleType>`
+const RegisterBtn = styled.button<styleType>`
   width: 90%;
   height: 2.5rem;
   margin-left: 1rem;
@@ -204,7 +200,7 @@ const RegisterBtn = styled.button.withConfig({
   font-weight: 800;
   background-color: ${(props) => props.theme.mainColor};
   cursor: ${(props) =>
-    props.isregisterpos === "true" ? "pointer" : "default"};
+    props.$isregisterpos === "true" ? "pointer" : "default"};
 `;
 
 const CloseModalSvg = styled(motion.svg)`
@@ -392,7 +388,7 @@ function Register() {
                   onClick={() => {
                     EmailDuplicateCheck();
                   }}
-                  isidcanbeused={isIdCanBeUsed.toString()}
+                  $isidcanbeused={isIdCanBeUsed.toString()}
                 >
                   중복확인
                 </EmailDuplicateCheckBtn>
@@ -498,7 +494,7 @@ function Register() {
                   setIsEmailVerifyPossible(true);
                 }}
                 disabled={isRegisterPossible ? false : true}
-                isregisterpos={isRegisterPossible.toString()}
+                $isregisterpos={isRegisterPossible.toString()}
               >
                 회원가입
               </RegisterBtn>

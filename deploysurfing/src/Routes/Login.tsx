@@ -7,7 +7,7 @@ import KakaoLoginWideImg from "../assets/images/kakao_login_medium_wide.png";
 import { useNavigate } from "react-router-dom";
 
 interface styleType {
-  ispasswordresetpossible?: string;
+  $ispasswordresetpossible?: string;
 }
 
 const Wrapper = styled.div`
@@ -186,19 +186,17 @@ const EmailVerifyStatusTxt = styled.span`
   font-weight: 600;
 `;
 
-const ResendVerificationCodeBtn = styled.button.withConfig({
-  shouldForwardProp: (prop) => prop !== "ispasswordresetpossible", //스타일링에만 적용 Dom에는 전송되지 않도록
-})<styleType>`
+const ResendVerificationCodeBtn = styled.button<styleType>`
   width: 87%;
   height: 2rem;
   border: none;
   border-radius: 10px;
   color: ${(props) =>
-    props.ispasswordresetpossible === "true" ? "black" : "#14ac87"};
+    props.$ispasswordresetpossible === "true" ? "black" : "#14ac87"};
   margin-top: 1rem;
   font-weight: 700;
   cursor: ${(props) =>
-    props.ispasswordresetpossible === "true" ? "pointer" : "default"};
+    props.$ispasswordresetpossible === "true" ? "pointer" : "default"};
   background-color: ${(props) => props.theme.mainColor};
 `;
 
@@ -282,7 +280,7 @@ function Login() {
                 ></EmailVerifyInput>
               </EmailVerifyRowWrapper>
               <ResendVerificationCodeBtn
-                ispasswordresetpossible={isPasswordResetPossible.toString()}
+                $ispasswordresetpossible={isPasswordResetPossible.toString()}
                 onClick={() => {
                   onClickSendResetMail();
                 }}

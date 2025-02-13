@@ -3,15 +3,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PowerButton from "../assets/images/powerbutton.png";
 interface PowerProps extends SVGMotionProps<SVGSVGElement> {
-  ispoweron?: string;
+  $ispoweron?: string;
 }
 interface styleType {
-  isselected?: boolean;
+  $isselected?: boolean;
 }
 
-const UserAppBtn = styled.button.withConfig({
-  shouldForwardProp: (prop) => prop !== "isselected", //스타일링에만 적용 Dom에는 전송되지 않도록
-})<styleType>`
+const UserAppBtn = styled.button<styleType>`
   display: flex;
   align-items: center;
   margin-top: 1.2rem;
@@ -20,7 +18,7 @@ const UserAppBtn = styled.button.withConfig({
   height: 3.5rem;
   border: 3px solid;
   border-radius: 15px;
-  border-color: ${(props) => (props.isselected ? "#11E5B3" : "#D5D5D5")};
+  border-color: ${(props) => (props.$isselected ? "#11E5B3" : "#D5D5D5")};
   background-color: #d5d5d5;
   cursor: pointer;
 `;
@@ -51,7 +49,7 @@ const PowerBtn = styled.div`
 const Power = styled(motion.svg)<PowerProps>`
   width: 38px;
   height: 30px;
-  fill: ${(props) => (props.ispoweron === "true" ? "#6DB33F" : "#fc8787")};
+  fill: ${(props) => (props.$ispoweron === "true" ? "#6DB33F" : "#fc8787")};
   z-index: 100;
   position: absolute;
 `;
@@ -86,7 +84,7 @@ function AppBtn() {
         <UserAppBtn
           key={app.id}
           onClick={() => onClickAppButton(app.name)}
-          isselected={(selectedApp === app.name) === true || false}
+          $isselected={(selectedApp === app.name) === true || false}
         >
           <PowerBtn>
             <Power
@@ -94,7 +92,7 @@ function AppBtn() {
               width="45"
               height="45"
               viewBox="0 0 45 45"
-              ispoweron={app.ispoweron} //ispoweron 프롭으로 각 앱의 파워 상태 전달
+              $ispoweron={app.ispoweron} //ispoweron 프롭으로 각 앱의 파워 상태 전달
             >
               <circle cx="22.5" cy="22.5" r="22.5" />
             </Power>
