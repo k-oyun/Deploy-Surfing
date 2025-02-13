@@ -5,7 +5,7 @@ import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 
 interface styleType {
-  isRegisterPos?: string;
+  isregisterpos?: string;
   isidcanbeused?: string;
 }
 const Wrapper = styled.div`
@@ -203,7 +203,8 @@ const RegisterBtn = styled.button.withConfig({
   font-size: 1.2rem;
   font-weight: 800;
   background-color: ${(props) => props.theme.mainColor};
-  cursor: ${(props) => (props.isRegisterPos ? "pointer" : "default")};
+  cursor: ${(props) =>
+    props.isregisterpos === "true" ? "pointer" : "default"};
 `;
 
 const CloseModalSvg = styled(motion.svg)`
@@ -497,7 +498,7 @@ function Register() {
                   setIsEmailVerifyPossible(true);
                 }}
                 disabled={isRegisterPossible ? false : true}
-                isRegisterPos={isRegisterPossible.toString()}
+                isregisterpos={isRegisterPossible.toString()}
               >
                 회원가입
               </RegisterBtn>
