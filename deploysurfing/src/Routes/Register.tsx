@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
+
+interface styleType {
+  isRegisterPos?: string;
+  isidcanbeused?: string;
+}
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -65,7 +70,6 @@ const EmailVerifyButton = styled.button`
 `;
 
 const EmailVerifyStatusTxt = styled.span`
-  /* padding-left: 1rem; */
   padding-top: 1rem;
   color: white;
   font-size: 0.9rem;
@@ -78,7 +82,6 @@ const ResendVerificationCodeBtn = styled.button`
   border: none;
   border-radius: 10px;
   color: black;
-  /* margin-left: 1rem; */
   margin-top: 1rem;
   font-weight: 700;
   cursor: pointer;
@@ -174,17 +177,23 @@ const Message = styled.span`
   color: white;
 `;
 
-const EmailDuplicateCheckBtn = styled.button`
+const EmailDuplicateCheckBtn = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "isidcanbeused", //스타일링에만 적용 Dom에는 전송되지 않도록
+})<styleType>`
   width: 18%;
   height: 1.4rem;
   border: 1px;
   border-radius: 5px;
   font-weight: 800;
+  cursor: ${(props) =>
+    props.isidcanbeused === "true" ? "pointer" : "default"};
+
   background-color: ${(props) => props.theme.mainColor};
-  cursor: pointer;
 `;
 
-const RegisterBtn = styled.button`
+const RegisterBtn = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "isRegisterPos", //스타일링에만 적용 Dom에는 전송되지 않도록
+})<styleType>`
   width: 90%;
   height: 2.5rem;
   margin-left: 1rem;
@@ -193,9 +202,8 @@ const RegisterBtn = styled.button`
   border-radius: 11px;
   font-size: 1.2rem;
   font-weight: 800;
-  /* color: white; */
   background-color: ${(props) => props.theme.mainColor};
-  cursor: pointer;
+  cursor: ${(props) => (props.isRegisterPos ? "pointer" : "default")};
 `;
 
 const CloseModalSvg = styled(motion.svg)`
@@ -206,20 +214,23 @@ const CloseModalSvg = styled(motion.svg)`
   position: absolute;
   cursor: pointer;
 `;
+
 function Register() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState("password");
   const [isPasswordCheckVisible, setIsPasswordCheckVisible] =
     useState("password");
 
   //---------------------------------------------
-  const [isIdCanBeUsed, setIsIdCanBeUsed] = useState(false);
+  const [isIdCanBeUsed, setIsIdCanBeUsed] = useState<boolean>(false);
   const [isIdDuplicated, setIsIdDuplicated] = useState(true);
   const [isPasswordCanBeUsed, setIsPasswordCanBeUsed] = useState(false);
   const [idMessage, setIdMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordDuplicateMessage, setPasswordDuplicateMessage] = useState("");
+  const [isRegisterPossible, setIsRegisterPossible] = useState(false);
 
   //----------------------------------------------
   const [isEmailVerifyPossible, setIsEmailVerifyPossible] =
@@ -257,14 +268,17 @@ function Register() {
     setPassword(text.target.value);
   };
 
-  const onChangePasswordDuplicateCheck = (
-    text: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (password === text.target.value) {
+  const onchangePasswordCheck = (text: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordCheck(text.target.value);
+  };
+
+  const PasswordDuplicateCheck = () => {
+    if (password === passwordCheck) {
       setPasswordDuplicateMessage("비밀번호가 일치합니다!");
       setIsPasswordCanBeUsed(true);
     } else {
       setPasswordDuplicateMessage("비밀번호가 일치하지 않습니다!");
+      setIsPasswordCanBeUsed(false);
     }
   };
 
@@ -284,13 +298,6 @@ function Register() {
       setIsIdDuplicated(true);
     }
   };
-  const isRegisterPos = () => {
-    if (isIdCanBeUsed && isPasswordCanBeUsed && !isIdDuplicated) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 
   const onClickResendBtn = () => {
     setEmailVerifyMessage("인증번호가 재전송되었습니다.");
@@ -302,6 +309,22 @@ function Register() {
       setEmailVerifyMessage("인증번호가 일치하지 않아요!");
     }
   };
+  const RegisterPos = () => {
+    if (isIdCanBeUsed && isPasswordCanBeUsed && !isIdDuplicated) {
+      setIsRegisterPossible(true);
+    } else {
+      setIsRegisterPossible(false);
+    }
+  };
+
+  useEffect(() => {
+    PasswordDuplicateCheck();
+    RegisterPos();
+  }, [onchangePassword, onchangePasswordCheck]);
+
+  useEffect(() => {
+    setIsIdDuplicated(true);
+  }, [id]);
 
   return (
     <>
@@ -368,6 +391,7 @@ function Register() {
                   onClick={() => {
                     EmailDuplicateCheck();
                   }}
+                  isidcanbeused={isIdCanBeUsed.toString()}
                 >
                   중복확인
                 </EmailDuplicateCheckBtn>
@@ -426,7 +450,7 @@ function Register() {
                 <ImpInput
                   type={isPasswordCheckVisible}
                   onChange={(text) => {
-                    onChangePasswordDuplicateCheck(text);
+                    onchangePasswordCheck(text);
                   }}
                 ></ImpInput>
                 {isPasswordCheckVisible === "password" ? (
@@ -472,7 +496,8 @@ function Register() {
                 onClick={() => {
                   setIsEmailVerifyPossible(true);
                 }}
-                disabled={isRegisterPos() ? false : true}
+                disabled={isRegisterPossible ? false : true}
+                isRegisterPos={isRegisterPossible.toString()}
               >
                 회원가입
               </RegisterBtn>
