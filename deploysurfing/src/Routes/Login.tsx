@@ -134,13 +134,20 @@ const LoginBtn = styled.button`
 const Modal = styled.div`
   display: flex;
   width: 100%;
-  height: 40.2rem;
-  margin-top: 5%;
+  height: 90%;
   margin-bottom: 7%;
   justify-content: center;
   align-items: center;
   background-color: rgb(0, 0, 0, 0.8);
   position: absolute;
+`;
+
+const CloseModalSvg = styled(motion.svg)`
+  width: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
 `;
 
 const EmailVerifyWrapper = styled.div`
@@ -198,15 +205,6 @@ const ResendVerificationCodeBtn = styled.button<styleType>`
   cursor: ${(props) =>
     props.$ispasswordresetpossible === "true" ? "pointer" : "default"};
   background-color: ${(props) => props.theme.mainColor};
-`;
-
-const CloseModalSvg = styled(motion.svg)`
-  display: flex;
-  width: 1rem;
-  margin-left: 117rem;
-  margin-bottom: 50rem;
-  position: absolute;
-  cursor: pointer;
 `;
 
 function Login() {
