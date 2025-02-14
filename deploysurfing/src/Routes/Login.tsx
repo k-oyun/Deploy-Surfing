@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 interface styleType {
   $ispasswordresetpossible?: string;
+  $loginfalse?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -46,7 +47,7 @@ const LogoTxt = styled.span`
 
 const GitHubDocker = styled.div`
   width: 87%;
-  height: 11rem;
+  height: 14rem;
   border-radius: 15px;
   margin-top: 1rem;
   background-color: rgb(59, 59, 59);
@@ -207,6 +208,11 @@ const ResendVerificationCodeBtn = styled.button<styleType>`
   background-color: ${(props) => props.theme.mainColor};
 `;
 
+const StatusTxt = styled.h4<styleType>`
+  color: white;
+  margin-left: 1rem;
+`;
+
 function Login() {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -217,6 +223,7 @@ function Login() {
   const [isPasswordVisible, setIsPasswordVisible] = useState<
     "password" | "text"
   >("password");
+  const [loginStatusText, setLoginStatusText] = useState<string>("");
   const navigate = useNavigate();
 
   const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {
@@ -250,6 +257,13 @@ function Login() {
     console.log("isPasswordResetPossible 상태 변경:", isPasswordResetPossible);
   }, [isPasswordResetPossible]);
 
+  const LoginTest = () => {
+    if (id !== "df@naver.com" || password !== "123456") {
+      setLoginStatusText("아이디 혹은 비밀번호가 틀립니다");
+    } else {
+      setLoginStatusText("");
+    }
+  };
   return (
     <>
       <Header />
@@ -341,9 +355,10 @@ function Login() {
                   </EyeSvg>
                 )}
               </InputWrapper>
+              <StatusTxt>{loginStatusText}</StatusTxt>
             </GitHubDocker>
             {/* 뭐로할까나~ */}
-            <LoginBtn>Login with Email</LoginBtn>
+            <LoginBtn onClick={LoginTest}>Login with Email</LoginBtn>
             <Kakao src={KakaoLoginWideImg}></Kakao>
 
             <TxtWrapper>
