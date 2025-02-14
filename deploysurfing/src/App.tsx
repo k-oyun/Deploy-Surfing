@@ -6,6 +6,7 @@ import AddApp from "./Routes/AddApp";
 import MyPage from "./Routes/MyPage";
 import Main from "./Routes/Main";
 import Register from "./Routes/Register";
+import PasswordReset from "./Routes/PasswordReset";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route Component={Main} path="/main" />
         <Route Component={MyPage} path="/myPage" />
         <Route Component={Register} path="/register" />
+        <Route Component={PasswordReset} path="/passwordreset" />
       </Routes>
     </Router>
   );

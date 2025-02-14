@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 interface styleType {
   $ispasswordresetpossible?: string;
-  $loginfalse?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -208,7 +207,7 @@ const ResendVerificationCodeBtn = styled.button<styleType>`
   background-color: ${(props) => props.theme.mainColor};
 `;
 
-const StatusTxt = styled.h4<styleType>`
+const StatusTxt = styled.h4`
   color: white;
   margin-left: 1rem;
 `;
