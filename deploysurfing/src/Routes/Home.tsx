@@ -7,22 +7,21 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 
+const Wrapper = styled.div`
+  overflow: scroll;
+  height: 100vh;
+`;
+
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Background = styled.div`
-  width: 100%;
-  height: 400;
-  opacity: 20%;
-  position: absolute;
-  z-index: -1;
-`;
-
-const BackgroundImg = styled.img`
-  width: 100%;
-  height: 100%;
+  background-image: url(${BackgroundImage});
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(${BackgroundImage});
+  height: 50vh;
 `;
 
 const MainDiv = styled.div`
@@ -78,7 +77,7 @@ const SubWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   height: 700px;
-  margin-top: 300px;
+  /* margin-top: 300px; */
   background-color: black;
 `;
 
@@ -106,12 +105,9 @@ const SubImg = styled.img`
 function Main() {
   const navigate = useNavigate();
   return (
-    <>
+    <Wrapper>
       <Header />
       <MainWrapper>
-        <Background>
-          <BackgroundImg src={BackgroundImage} />
-        </Background>
         <MainDiv>
           <LogoImg src={DefloyLogo} />
 
@@ -149,7 +145,7 @@ function Main() {
         </SubImgDiv>
       </SubWrapper>
       <Footer />
-    </>
+    </Wrapper>
   );
 }
 

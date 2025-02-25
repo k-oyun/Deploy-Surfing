@@ -126,7 +126,7 @@ const Header = () => {
           </OpenSidebar> */}
 
           <LogoBtn>
-            <LogoTxt onClick={() => navigate("/home")}>Deploy Surfing</LogoTxt>
+            <LogoTxt onClick={() => navigate("/")}>Deploy Surfing</LogoTxt>
           </LogoBtn>
         </Col>
         {isLogin ? (

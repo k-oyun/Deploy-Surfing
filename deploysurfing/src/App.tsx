@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route Component={Login} path="/login" />
         <Route Component={AddApp} path="/addApp" />
-        <Route Component={Home} path="/home" />
+        <Route Component={Home} path="/" />
         <Route Component={Main} path="/main" />
         <Route Component={MyPage} path="/myPage" />
         <Route Component={Register} path="/register" />
