@@ -4,6 +4,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 import { signupPost } from "../api";
+import { useNavigate } from "react-router-dom";
 
 interface styleType {
   $isregisterpos?: string;
@@ -253,6 +254,8 @@ function Register() {
     }
   };
 
+  const navigate = useNavigate();
+
   const validatePassword = (password: React.ChangeEvent<HTMLInputElement>) => {
     const passwordRegExp = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&]).{8,64}$/;
     if (!passwordRegExp.test(password.target.value)) {
@@ -314,7 +317,7 @@ function Register() {
     }
   };
   const RegisterPos = () => {
-    if (isEmailCanBeUsed && isPasswordCanBeUsed && !isEmailDuplicated) {
+    if (isEmailCanBeUsed && isPasswordCanBeUsed) {
       setIsRegisterPossible(true);
     } else {
       setIsRegisterPossible(false);
@@ -335,6 +338,20 @@ function Register() {
     setisEmailDuplicated(true);
   }, [email]);
 
+  const onclickRegister = async () => {
+    try {
+      extractName(email);
+      const data = await signupPost({ name, email, password });
+      if (data.code === "201") {
+        alert("회원가입이 완료되었습니다.");
+        navigate("/login");
+      } else {
+        alert("이미 존재하는 이메일입니다.");
+      }
+    } catch (error) {
+      console.log("로그인 오류:", error);
+    }
+  };
   return (
     <>
       <Header />
@@ -394,15 +411,6 @@ function Register() {
               </InputWrapper>
               <MessageWrapper>
                 <Message> {idMessage}</Message>
-                <EmailDuplicateCheckBtn
-                  disabled={!isEmailCanBeUsed}
-                  onClick={() => {
-                    EmailDuplicateCheck();
-                  }}
-                  $isidcanbeused={isEmailCanBeUsed.toString()}
-                >
-                  중복확인
-                </EmailDuplicateCheckBtn>
               </MessageWrapper>
 
               <ExplainTxt>Password</ExplainTxt>
@@ -501,11 +509,7 @@ function Register() {
               </InputWrapper>
               <ExplainTxt>{passwordDuplicateMessage}</ExplainTxt>
               <RegisterBtn
-                onClick={() => {
-                  setIsEmailVerifyPossible(true);
-                  extractName(email);
-                  signupPost({ name, email, password });
-                }}
+                onClick={onclickRegister}
                 disabled={isRegisterPossible ? false : true}
                 $isregisterpos={isRegisterPossible.toString()}
               >

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const BASE_URL = "https://smul.store";
 
@@ -34,14 +33,15 @@ export const loginPost = async ({ email, password }: LoginData) => {
 export const signupPost = async ({ name, email, password }: SignupData) => {
   try {
     const res = await axios.post(
-      `${BASE_URL}/user/signup`,
-      { name: name, email: email, password: password },
+      `${BASE_URL}/user/signup?name=${name}&email=${email}&password=${password}`,
+
       {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
+    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);

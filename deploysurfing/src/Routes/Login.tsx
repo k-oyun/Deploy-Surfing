@@ -254,7 +254,7 @@ function Login() {
     }
   };
 
-  const handleLogin = async () => {
+  const onclickLogin = async () => {
     try {
       const res = await loginPost({ email, password });
       if (res) {
@@ -361,7 +361,7 @@ function Login() {
             </GitHubDocker>
             <LoginBtn
               onClick={() => {
-                handleLogin();
+                onclickLogin();
               }}
             >
               Login with Email
