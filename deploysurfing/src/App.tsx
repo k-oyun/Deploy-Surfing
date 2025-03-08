@@ -7,8 +7,10 @@ import MyPage from "./Routes/MyPage";
 import Main from "./Routes/Main";
 import Register from "./Routes/Register";
 import PasswordReset from "./Routes/PasswordReset";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
     <Router>
       <Routes>

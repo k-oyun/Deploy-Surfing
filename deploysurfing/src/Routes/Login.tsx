@@ -5,6 +5,7 @@ import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 import KakaoLoginWideImg from "../assets/images/kakao_login_medium_wide.png";
 import { useNavigate } from "react-router-dom";
+import { loginPost } from "../api";
 
 interface styleType {
   $ispasswordresetpossible?: string;
@@ -213,7 +214,7 @@ const StatusTxt = styled.h4`
 `;
 
 function Login() {
-  const [id, setId] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [emailVerifyMessage, setEmailVerifyMessage] = useState<string>("");
@@ -225,15 +226,15 @@ function Login() {
   const [loginStatusText, setLoginStatusText] = useState<string>("");
   const navigate = useNavigate();
 
-  const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {
-    setId(text.target.value);
+  const onchangeEmail = (text: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(text.target.value);
   };
   const onchangePassword = (text: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(text.target.value);
   };
 
   const onClickSendResetMail = () => {
-    if (isPasswordResetPossible && id.length !== 0) {
+    if (isPasswordResetPossible && email.length !== 0) {
       setEmailVerifyMessage("재설정 메일을 보내드렸어요!");
     } else {
       setEmailVerifyMessage("올바른 이메일 형식을 입력해주세요.");
@@ -252,15 +253,17 @@ function Login() {
       setIsPasswordResetPossible(true);
     }
   };
-  useEffect(() => {
-    console.log("isPasswordResetPossible 상태 변경:", isPasswordResetPossible);
-  }, [isPasswordResetPossible]);
 
-  const LoginTest = () => {
-    if (id !== "df@naver.com" || password !== "123456") {
-      setLoginStatusText("아이디 혹은 비밀번호가 틀립니다");
-    } else {
-      setLoginStatusText("");
+  const handleLogin = async () => {
+    try {
+      const res = await loginPost({ email, password });
+      if (res) {
+        navigate("/");
+      } else {
+        setLoginStatusText("아이디 혹은 비밀번호가 틀립니다");
+      }
+    } catch (error) {
+      console.log("로그인 오류:", error);
     }
   };
   return (
@@ -285,7 +288,7 @@ function Login() {
                 <EmailVerifyInput
                   placeholder="defloySurfing@google.com"
                   onChange={(text) => {
-                    onchangeId(text);
+                    onchangeEmail(text);
                     validateEmail(text);
                   }}
                 ></EmailVerifyInput>
@@ -308,7 +311,7 @@ function Login() {
             <GitHubDocker>
               <ExplainTxt>Id</ExplainTxt>
               <InputWrapper>
-                <ImpInput onChange={onchangeId}></ImpInput>
+                <ImpInput onChange={onchangeEmail}></ImpInput>
               </InputWrapper>
               <ExplainTxt>Password</ExplainTxt>
               <InputWrapper>
@@ -356,8 +359,13 @@ function Login() {
               </InputWrapper>
               <StatusTxt>{loginStatusText}</StatusTxt>
             </GitHubDocker>
-            {/* 뭐로할까나~ */}
-            <LoginBtn onClick={LoginTest}>Login with Email</LoginBtn>
+            <LoginBtn
+              onClick={() => {
+                handleLogin();
+              }}
+            >
+              Login with Email
+            </LoginBtn>
             <Kakao src={KakaoLoginWideImg}></Kakao>
 
             <TxtWrapper>

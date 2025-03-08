@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   overflow: scroll;
+  overflow-x: hidden;
   height: 100vh;
+  background-color: blue;
 `;
 
 const MainWrapper = styled.div`
@@ -77,7 +79,6 @@ const SubWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   height: 700px;
-  /* margin-top: 300px; */
   background-color: black;
 `;
 
@@ -91,15 +92,12 @@ const SubDiv = styled.div`
 `;
 
 const SubImgDiv = styled.div`
-  width: 50%;
   margin-top: 130px;
-  margin-left: 250px;
+  margin-left: 100px;
 `;
 
 const SubImg = styled.img`
-  display: flex;
-  flex: 1;
-  height: 40vh;
+  height: 30vh;
 `;
 
 function Main() {

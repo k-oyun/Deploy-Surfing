@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
+import { signupPost } from "../api";
 
 interface styleType {
   $isregisterpos?: string;
@@ -211,8 +212,9 @@ const RegisterBtn = styled.button<styleType>`
 `;
 
 function Register() {
-  const [id, setId] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<string>("");
   const [isPasswordVisible, setIsPasswordVisible] = useState<
     "password" | "text"
@@ -222,8 +224,8 @@ function Register() {
   >("password");
 
   //---------------------------------------------
-  const [isIdCanBeUsed, setIsIdCanBeUsed] = useState<boolean>(false);
-  const [isIdDuplicated, setIsIdDuplicated] = useState(true);
+  const [isEmailCanBeUsed, setIsEmailCanBeUsed] = useState<boolean>(false);
+  const [isEmailDuplicated, setisEmailDuplicated] = useState(true);
   const [isPasswordCanBeUsed, setIsPasswordCanBeUsed] = useState(false);
   const [idMessage, setIdMessage] = useState<string>("");
   const [passwordMessage, setPasswordMessage] = useState<string>("");
@@ -244,10 +246,10 @@ function Register() {
 
     if (!emailRegExp.test(email.target.value)) {
       setIdMessage("올바른 이메일 형식을 입력해주세요.");
-      setIsIdCanBeUsed(false);
+      setIsEmailCanBeUsed(false);
     } else {
       setIdMessage("올바른 이메일 형식입니다.");
-      setIsIdCanBeUsed(true);
+      setIsEmailCanBeUsed(true);
     }
   };
 
@@ -261,7 +263,7 @@ function Register() {
   };
 
   const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {
-    setId(text.target.value);
+    setEmail(text.target.value);
   };
   const onchangePassword = (text: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(text.target.value);
@@ -291,13 +293,13 @@ function Register() {
   };
   const EmailDuplicateCheck = () => {
     const test = "dhdbs1208@naver.com";
-    if (test !== id && isIdCanBeUsed) {
+    if (test !== email && isEmailCanBeUsed) {
       setIdMessage("사용할 수 있는 이메일이에요.");
-      setIsIdDuplicated(false);
+      setisEmailDuplicated(false);
     }
-    if (test === id) {
+    if (test === email) {
       setIdMessage("이미 사용하고 있는 이메일이에요.");
-      setIsIdDuplicated(true);
+      setisEmailDuplicated(true);
     }
   };
 
@@ -312,11 +314,16 @@ function Register() {
     }
   };
   const RegisterPos = () => {
-    if (isIdCanBeUsed && isPasswordCanBeUsed && !isIdDuplicated) {
+    if (isEmailCanBeUsed && isPasswordCanBeUsed && !isEmailDuplicated) {
       setIsRegisterPossible(true);
     } else {
       setIsRegisterPossible(false);
     }
+  };
+
+  const extractName = (email: string) => {
+    const name = email.split("@")[0];
+    setName(name);
   };
 
   useEffect(() => {
@@ -325,8 +332,8 @@ function Register() {
   }, [onchangePassword, onchangePasswordCheck]);
 
   useEffect(() => {
-    setIsIdDuplicated(true);
-  }, [id]);
+    setisEmailDuplicated(true);
+  }, [email]);
 
   return (
     <>
@@ -377,7 +384,6 @@ function Register() {
           <UserInfo>
             <GitHubDocker>
               <ExplainTxt>Id</ExplainTxt>
-
               <InputWrapper>
                 <ImpInput
                   onChange={(text) => {
@@ -389,11 +395,11 @@ function Register() {
               <MessageWrapper>
                 <Message> {idMessage}</Message>
                 <EmailDuplicateCheckBtn
-                  disabled={!isIdCanBeUsed}
+                  disabled={!isEmailCanBeUsed}
                   onClick={() => {
                     EmailDuplicateCheck();
                   }}
-                  $isidcanbeused={isIdCanBeUsed.toString()}
+                  $isidcanbeused={isEmailCanBeUsed.toString()}
                 >
                   중복확인
                 </EmailDuplicateCheckBtn>
@@ -497,6 +503,8 @@ function Register() {
               <RegisterBtn
                 onClick={() => {
                   setIsEmailVerifyPossible(true);
+                  extractName(email);
+                  signupPost({ name, email, password });
                 }}
                 disabled={isRegisterPossible ? false : true}
                 $isregisterpos={isRegisterPossible.toString()}
