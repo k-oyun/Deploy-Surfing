@@ -11,6 +11,16 @@ interface SignupData {
   email: string;
   password: string;
 }
+interface UserUpdateData {
+  newName: string;
+  awsRoleArn: string;
+  awsAccessKey: string;
+  awsSecretKey: string;
+  dockerHubToken: string;
+  dockerHubName: string;
+  gitHubToken: string;
+  accessToken: string;
+}
 
 export const loginPost = async ({ email, password }: LoginData) => {
   try {
@@ -59,6 +69,35 @@ export const userGet = async (accessToken: string) => {
     });
     console.log(res);
     return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const userUpdatePost = async ({
+  newName,
+  awsRoleArn,
+  awsAccessKey,
+  awsSecretKey,
+  dockerHubToken,
+  dockerHubName,
+  gitHubToken,
+  accessToken,
+}: UserUpdateData) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}/user/update?name=${newName}&awsRoleArn=${awsRoleArn}&awsAccessKey=${awsAccessKey}&awsSecretKey=${awsSecretKey}&dockerToken=${dockerHubToken}&dockerHubName=${dockerHubName}&gitHubToken=${gitHubToken}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(res.data);
+    return res.data;
   } catch (error) {
     console.log(error);
   }

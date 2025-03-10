@@ -1,42 +1,41 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import styled from "styled-components";
-import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
-import { userDelete, userGet } from "../api";
+import { userDelete, userGet, userUpdatePost } from "../api";
 import { useNavigate } from "react-router-dom";
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  background-color: black;
+  /* background-color: black;s */
 `;
 
 const UserInfoWrapper = styled.div`
   width: 35rem;
-  height: 40rem;
+  height: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5%;
-  margin-bottom: 7%;
   background-color: #181818;
+  margin-top: 30px;
   border-radius: 20px;
 `;
 
 const UserInfo = styled.div`
   width: 90%;
-  height: 3rem;
+  height: 48px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 16px;
 `;
 
 const UserProfile = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  margin-right: 1rem;
+  margin-right: 16px;
   background-color: white;
 `;
 
@@ -48,43 +47,41 @@ const UserName = styled.div`
 
 const GitHubDocker = styled.div`
   width: 87%;
-  height: 5.5rem;
+  height: 140px;
   border-radius: 15px;
-  margin-top: 1.5rem;
+  margin-top: 16px;
   background-color: rgb(59, 59, 59);
 `;
 
 const AWS = styled.div`
   width: 87%;
-  height: 15rem;
+  height: 205px;
   border-radius: 15px;
-  margin-top: 1.5rem;
+  margin-top: 16px;
   background-color: rgb(59, 59, 59);
 `;
 const ExplainTxt = styled.span`
   display: block;
   font-weight: 800;
-  font-size: 1rem;
-  margin-top: 1rem;
-  margin-left: 1rem;
+  font-size: 0.8rem;
+  margin-top: 16px;
+  margin-left: 16px;
   color: white;
 `;
 
 const ImpInput = styled.input`
   width: 100%;
   height: 100%;
-  /* margin-left: 1rem; */
-  /* margin-top: 0.3rem; */
-  padding-left: 0.5rem;
+  padding-left: 8px;
   border: 0px;
   border-radius: 10px;
 `;
 
 const InputWrapper = styled.div`
   width: 90%;
-  height: 2rem;
-  margin-left: 1rem;
-  margin-top: 0.3rem;
+  height: 27px;
+  margin-left: 16px;
+  margin-top: 4.8px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -93,19 +90,20 @@ const InputWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   width: 87%;
-  height: 2rem;
   display: flex;
-  margin-top: 2rem;
+  margin-top: 16px;
   justify-content: space-between;
+  /* background-color: red; */
 `;
 
 const Button = styled.button`
   width: 18%;
-  height: 2.5rem;
+  height: 41px;
   border: 0px;
   border-radius: 15px;
   font-weight: 700;
   background-color: ${(props) => props.theme.mainColor};
+
   cursor: pointer;
 `;
 
@@ -122,14 +120,19 @@ const EyeSvg = styled(motion.svg)`
 `;
 
 function MyPage() {
-  const [userName, setUserName] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [newName, setNewName] = useState<string>("");
   const [gitHubToken, setGitHubToken] = useState<string>(``);
   const [awsRoleArn, setAWSRoleArn] = useState<string>(``);
   const [awsAccessKey, setAWSAccessKey] = useState<string>(``);
   const [awsSecretKey, setAWSSecretKey] = useState<string>(``);
   const [dockerHubToken, setDockerHubToken] = useState<string>(``);
+  const [dockerHubName, setDockerHubName] = useState<string>(``);
   const navigate = useNavigate();
 
+  const onChangeName = (text: React.ChangeEvent<HTMLInputElement>) => {
+    setNewName(text.target.value);
+  };
   const onChangeGitHub = (text: React.ChangeEvent<HTMLInputElement>) => {
     setGitHubToken(text.target.value);
   };
@@ -148,6 +151,10 @@ function MyPage() {
     setDockerHubToken(text.target.value);
   };
 
+  const onChangeDockerHubName = (text: React.ChangeEvent<HTMLInputElement>) => {
+    setDockerHubName(text.target.value);
+  };
+
   //----------아이콘 누름 처리-------------
   const [gitReady, setGitReady] = useState<boolean>(false);
   const [gitCanSee, setGitCanSee] = useState<string>("password");
@@ -164,12 +171,10 @@ function MyPage() {
   const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     (async () => {
-      console.log(accessToken);
-
       if (accessToken) {
         try {
           const res = await userGet(accessToken);
-          setUserName(res?.data.result.name);
+          setName(res?.data.result.name);
         } catch (error) {
           console.error("사용자 조회 실패", error);
         }
@@ -194,6 +199,28 @@ function MyPage() {
     }
   };
 
+  const onclickUserSave = async () => {
+    if (accessToken) {
+      try {
+        const res = await userUpdatePost({
+          newName,
+          awsRoleArn,
+          awsAccessKey,
+          awsSecretKey,
+          dockerHubToken,
+          dockerHubName,
+          gitHubToken,
+          accessToken,
+        });
+        if (res.code === "200") {
+          alert("변경 내용이 저장되었습니다.");
+        }
+      } catch (error) {
+        alert("변경 내용 저장 중 에러가 발생했습니다.");
+      }
+    }
+  };
+
   return (
     <>
       <Header />
@@ -201,9 +228,17 @@ function MyPage() {
         <UserInfoWrapper>
           <UserInfo>
             <UserProfile></UserProfile>
-            <UserName>{userName}</UserName>
+            <UserName>{name}</UserName>
           </UserInfo>
           <GitHubDocker>
+            <ExplainTxt>User Name</ExplainTxt>
+            <InputWrapper>
+              <ImpInput
+                onChange={onChangeName}
+                value={newName || ""}
+              ></ImpInput>
+            </InputWrapper>
+
             <ExplainTxt>GitHub Token</ExplainTxt>
             <InputWrapper>
               <ImpInput
@@ -454,12 +489,19 @@ function MyPage() {
             </InputWrapper>
           </AWS>
           <GitHubDocker>
+            <ExplainTxt>Docker Hub Name</ExplainTxt>
+            <InputWrapper>
+              <ImpInput
+                onChange={onChangeDockerHubName}
+                value={dockerHubName || ""}
+              ></ImpInput>
+            </InputWrapper>
             <ExplainTxt>Docker Hub Token</ExplainTxt>
             <InputWrapper>
               <ImpInput
                 type={dockerCanSee}
                 onChange={onChangeDockerHubToken}
-                value={dockerHubToken}
+                value={dockerHubToken || ""}
                 readOnly={dockerReady}
               ></ImpInput>
               <PencilSvg
@@ -518,11 +560,10 @@ function MyPage() {
           </GitHubDocker>
           <ButtonWrapper>
             <Button onClick={onclickUserDelete}>회원탈퇴</Button>
-            <Button>저장</Button>
+            <Button onClick={onclickUserSave}>저장</Button>
           </ButtonWrapper>
         </UserInfoWrapper>
       </Wrapper>
-      <Footer />
     </>
   );
 }

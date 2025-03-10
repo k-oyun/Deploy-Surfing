@@ -309,7 +309,7 @@ function Login() {
           <LogoTxt>Deploy Surfing</LogoTxt>
           <UserInfo>
             <GitHubDocker>
-              <ExplainTxt>Id</ExplainTxt>
+              <ExplainTxt>Email</ExplainTxt>
               <InputWrapper>
                 <ImpInput onChange={onchangeEmail}></ImpInput>
               </InputWrapper>
@@ -389,7 +389,6 @@ function Login() {
           </UserInfo>
         </UserInfoWrapper>
       </Wrapper>
-      <Footer />
     </>
   );
 }

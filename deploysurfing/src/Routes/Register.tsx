@@ -265,8 +265,9 @@ function Register() {
     }
   };
 
-  const onchangeId = (text: React.ChangeEvent<HTMLInputElement>) => {
+  const onchangeEmail = (text: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(text.target.value);
+    setisEmailDuplicated(true);
   };
   const onchangePassword = (text: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(text.target.value);
@@ -317,16 +318,11 @@ function Register() {
     }
   };
   const RegisterPos = () => {
-    if (isEmailCanBeUsed && isPasswordCanBeUsed) {
+    if (isEmailCanBeUsed && isPasswordCanBeUsed && !isEmailDuplicated) {
       setIsRegisterPossible(true);
     } else {
       setIsRegisterPossible(false);
     }
-  };
-
-  const extractName = (email: string) => {
-    const name = email.split("@")[0];
-    setName(name);
   };
 
   useEffect(() => {
@@ -335,16 +331,14 @@ function Register() {
   }, [onchangePassword, onchangePasswordCheck]);
 
   useEffect(() => {
-    setisEmailDuplicated(true);
-  }, [email]);
+    setName(email.split("@")[0]);
+    console.log(name, isEmailDuplicated);
+  }, [onchangeEmail]);
 
   const onclickRegister = async () => {
     try {
-      extractName(email);
-      console.log(name);
       const data = await signupPost({ name, email, password });
       if (data.code === "201") {
-        console.log(name);
         alert("회원가입이 완료되었습니다.");
         navigate("/login");
       } else {
@@ -402,11 +396,11 @@ function Register() {
           <LogoTxt>Deploy Surfing</LogoTxt>
           <UserInfo>
             <GitHubDocker>
-              <ExplainTxt>Id</ExplainTxt>
+              <ExplainTxt>Email</ExplainTxt>
               <InputWrapper>
                 <ImpInput
                   onChange={(text) => {
-                    onchangeId(text);
+                    onchangeEmail(text);
                     validateEmail(text);
                   }}
                 ></ImpInput>
@@ -530,7 +524,6 @@ function Register() {
           </UserInfo>
         </UserInfoWrapper>
       </Wrapper>
-      <Footer />
     </>
   );
 }
