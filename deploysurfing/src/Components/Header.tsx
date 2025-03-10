@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { userGet } from "../api";
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -79,7 +80,7 @@ const UserMyPageOptions = styled.div`
   margin-top: 17vh;
   margin-left: 90%;
   background-color: rgb(59, 59, 59);
-  /* background-color: red; */
+
   border: 1px solid white;
   border-radius: 5%;
 `;
@@ -102,6 +103,7 @@ const UserMyPageOptionTxt = styled.span`
 
 const Header = () => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState<string>("");
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isUserOptionClicked, setIsUserOptionClicked] =
     useState<boolean>(false);
@@ -121,6 +123,22 @@ const Header = () => {
     localStorage.removeItem("accessToken");
     navigate("/login");
   };
+
+  const accessToken = localStorage.getItem("accessToken");
+  useEffect(() => {
+    (async () => {
+      console.log(accessToken);
+
+      if (accessToken) {
+        try {
+          const res = await userGet(accessToken);
+          setUserName(res?.data.result.name);
+        } catch (error) {
+          console.error("사용자 조회 실패", error);
+        }
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -163,7 +181,7 @@ const Header = () => {
                   fill="white"
                 />
               </UserMyPageLogoSvg>
-              <UserMyPageOptionTxt>User</UserMyPageOptionTxt>
+              <UserMyPageOptionTxt>{userName}</UserMyPageOptionTxt>
             </UserMyPageOption>
             <UserMyPageOption
               onClick={() => {
