@@ -24,6 +24,7 @@ export const loginPost = async ({ email, password }: LoginData) => {
       }
     );
     localStorage.setItem("accessToken", res.data.accessToken);
+    console.log(res.data.accessToken);
     return res;
   } catch (error) {
     console.log(error);
@@ -42,6 +43,40 @@ export const signupPost = async ({ name, email, password }: SignupData) => {
       }
     );
     console.log(res);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const userGet = async (accessToken: string) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/user`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const userDelete = async (accessToken: string) => {
+  try {
+    const res = await axios.delete(
+      `${BASE_URL}/user/withdraw`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import styled from "styled-components";
 import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
+import { userDelete, userGet } from "../api";
+import { useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -120,11 +122,13 @@ const EyeSvg = styled(motion.svg)`
 `;
 
 function MyPage() {
+  const [userName, setUserName] = useState<string>("");
   const [gitHubToken, setGitHubToken] = useState<string>(``);
   const [awsRoleArn, setAWSRoleArn] = useState<string>(``);
   const [awsAccessKey, setAWSAccessKey] = useState<string>(``);
   const [awsSecretKey, setAWSSecretKey] = useState<string>(``);
   const [dockerHubToken, setDockerHubToken] = useState<string>(``);
+  const navigate = useNavigate();
 
   const onChangeGitHub = (text: React.ChangeEvent<HTMLInputElement>) => {
     setGitHubToken(text.target.value);
@@ -157,6 +161,39 @@ function MyPage() {
   const [dockerCanSee, setDockerCanSee] = useState<string>("password");
 
   //--------------------------------------------------------
+  const accessToken = localStorage.getItem("accessToken");
+  useEffect(() => {
+    (async () => {
+      console.log(accessToken);
+
+      if (accessToken) {
+        try {
+          const res = await userGet(accessToken);
+          setUserName(res?.data.result.name);
+        } catch (error) {
+          console.error("사용자 조회 실패", error);
+        }
+      }
+    })();
+  }, []);
+
+  const onclickUserDelete = async () => {
+    if (accessToken) {
+      try {
+        const res = await userDelete(accessToken);
+        if (res.code === "200") {
+          localStorage.removeItem("accessToken");
+          alert("회원 탈퇴가 완료되었습니다.");
+          navigate("/");
+        } else {
+          alert("예상치 못한 문제가 발생했습니다.");
+        }
+      } catch (error) {
+        alert("탈퇴 처리 중 문제가 발생했습니다.");
+      }
+    }
+  };
+
   return (
     <>
       <Header />
@@ -164,7 +201,7 @@ function MyPage() {
         <UserInfoWrapper>
           <UserInfo>
             <UserProfile></UserProfile>
-            <UserName>오윤</UserName>
+            <UserName>{userName}</UserName>
           </UserInfo>
           <GitHubDocker>
             <ExplainTxt>GitHub Token</ExplainTxt>
@@ -480,7 +517,7 @@ function MyPage() {
             </InputWrapper>
           </GitHubDocker>
           <ButtonWrapper>
-            <Button>회원탈퇴</Button>
+            <Button onClick={onclickUserDelete}>회원탈퇴</Button>
             <Button>저장</Button>
           </ButtonWrapper>
         </UserInfoWrapper>

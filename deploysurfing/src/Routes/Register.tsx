@@ -341,8 +341,10 @@ function Register() {
   const onclickRegister = async () => {
     try {
       extractName(email);
+      console.log(name);
       const data = await signupPost({ name, email, password });
       if (data.code === "201") {
+        console.log(name);
         alert("회원가입이 완료되었습니다.");
         navigate("/login");
       } else {
@@ -411,6 +413,15 @@ function Register() {
               </InputWrapper>
               <MessageWrapper>
                 <Message> {idMessage}</Message>
+                <EmailDuplicateCheckBtn
+                  disabled={!isEmailCanBeUsed}
+                  onClick={() => {
+                    EmailDuplicateCheck();
+                  }}
+                  $isidcanbeused={isEmailCanBeUsed.toString()}
+                >
+                  중복확인
+                </EmailDuplicateCheckBtn>
               </MessageWrapper>
 
               <ExplainTxt>Password</ExplainTxt>

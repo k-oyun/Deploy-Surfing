@@ -101,7 +101,6 @@ const UserMyPageOptionTxt = styled.span`
 `;
 
 const Header = () => {
-  // const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isUserOptionClicked, setIsUserOptionClicked] =
