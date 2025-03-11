@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const BASE_URL = "https://smul.store";
 
@@ -21,6 +22,30 @@ interface UserUpdateData {
   gitHubToken: string;
   accessToken: string;
 }
+interface addAppData {
+  name: string;
+  type: string;
+  gitHubUrl: string;
+  yml: string;
+  version: string;
+  port: string;
+}
+
+let cachedToken: string | null = null;
+
+const getAccessToken = async () => {
+  if (cachedToken) return cachedToken;
+  try {
+    const token = await localStorage.getItem("accessToken");
+    if (token) {
+      cachedToken = `Bearer ${token}`;
+    }
+    return cachedToken;
+  } catch (error) {
+    console.error("Token 에러!:", error);
+    throw error;
+  }
+};
 
 export const loginPost = async ({ email, password }: LoginData) => {
   try {
@@ -117,6 +142,33 @@ export const userDelete = async (accessToken: string) => {
     );
     console.log(res.data);
     return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addAppPost = async ({
+  name,
+  type,
+  gitHubUrl,
+  yml,
+  version,
+  port,
+}: addAppData) => {
+  const accessToken = await getAccessToken();
+  try {
+    const res = await axios.post(
+      `${BASE_URL}/app/create`,
+      { name, type, gitHubUrl, yml, version, port },
+      {
+        headers: {
+          Authorization: accessToken,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res.data);
+    return res;
   } catch (error) {
     console.log(error);
   }

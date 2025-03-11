@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import File from "../assets/images/file-lines-solid 1.png";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import { addAppPost } from "../api";
+import { frame } from "framer-motion";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,32 +13,30 @@ const Wrapper = styled.div`
 `;
 
 const AddAppWrapper = styled.div`
-  width: 35rem;
-  height: 40rem;
+  width: 560px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-left: 510px; */
-  margin-top: 5%;
-  margin-bottom: 7%;
+  margin-top: 40px;
   background-color: #181818;
   border-radius: 20px;
 `;
 
 const AddAppText = styled.span`
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 800;
-  margin-top: 3%;
-  margin-right: 68%;
+  margin-top: 15px;
+  margin-right: 390px;
   color: white;
 `;
 
-const InputForm = styled.form`
+const InputWrapper = styled.form`
   display: flex;
   flex-direction: column;
   width: 70%;
-  height: 100%;
-  margin-top: 3rem;
+  height: 600px;
+  margin-top: 30px;
 `;
 
 const InputSelect = styled.select`
@@ -97,13 +97,13 @@ const FileImg = styled.img`
 `;
 
 const InputText = styled.span`
-  margin-top: 4%;
+  margin-top: 11px;
   color: white;
   font-weight: 800;
 `;
 
 const InputTextArea = styled.textarea`
-  height: 20%;
+  height: 100px;
   border: 1px solid rgba(0, 0, 0, 0.9);
   border-radius: 8px;
   margin-top: 5px;
@@ -114,50 +114,78 @@ const InputTextArea = styled.textarea`
 `;
 
 const CompleteButton = styled.button`
-  width: 13%;
-  height: 7%;
+  width: 70px;
+  height: 35px;
   background-color: ${(props) => props.theme.mainColor};
   border: 0px solid rgba(0, 0, 0, 0);
   border-radius: 8px;
-  margin-left: 56%;
-  margin-bottom: 2%;
+  margin-left: 310px;
+  margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 function AddApp() {
   const [appName, setAppName] = useState<string>("");
   const [url, setUrl] = useState<string>("");
-  const [framework, setFramework] = useState<string>("");
-  const [fileName, setFileName] = useState<string>("파일을 업로드하세요.");
+  const [framework, setFramework] = useState<string>("Spring Boot");
+  const [yml, setYml] = useState<string>("");
+  const [version, setVersion] = useState<string>("");
+  const [port, setPort] = useState<string>("");
 
   const onChangeAppName = (text: React.ChangeEvent<HTMLInputElement>) => {
     setAppName(text.target.value);
   };
-
   const onChangeUrl = (text: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(text.target.value);
   };
-
-  const onChangeFramework = (
-    framework: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setFramework(framework.target.value);
+  const onChangeYml = (text: React.ChangeEvent<HTMLInputElement>) => {
+    setYml(text.target.value);
   };
 
-  const onChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFileName(file.name); // 파일 이름 상태 업데이트
-    }
+  const onChangeVersion = (text: React.ChangeEvent<HTMLInputElement>) => {
+    setVersion(text.target.value);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onChangePort = (text: React.ChangeEvent<HTMLInputElement>) => {
+    setPort(text.target.value);
+  };
+  const onChangeFramework = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setFramework(value);
+  };
 
-    const appInfo = new FormData();
-    appInfo.append("appName", appName);
-    appInfo.append("url", url);
-    appInfo.append("framework", framework);
-    appInfo.append("fileName", fileName);
+  // const [fileName, setFileName] = useState<string>("파일을 업로드하세요.");
+  // const onChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     setFileName(file.name);
+  //   }
+  // };
+
+  const onclickSubmit = () => {
+    console.log(
+      "name:",
+      appName,
+      "type:",
+      framework,
+      "url:",
+      url,
+      "yml:",
+      yml,
+      "version:",
+      version,
+      "port:",
+      port
+    );
+
+    addAppPost({
+      name: appName,
+      type: framework,
+      gitHubUrl: url,
+      yml,
+      version,
+      port,
+    });
   };
   return (
     <>
@@ -165,18 +193,24 @@ function AddApp() {
       <Wrapper>
         <AddAppWrapper>
           <AddAppText>새 앱 추가</AddAppText>
-          <InputForm onSubmit={handleSubmit}>
+          <InputWrapper>
             <InputText>앱 이름 :</InputText>
             <Input onChange={onChangeAppName}></Input>
             <InputText>Github Repository URL :</InputText>
             <Input onChange={onChangeUrl}></Input>
+            <InputText>Version :</InputText>
+            <Input onChange={onChangeVersion}></Input>
+            <InputText>Port :</InputText>
+            <Input onChange={onChangePort}></Input>
             <InputText>Framework :</InputText>
             <InputSelect onChange={onChangeFramework}>
-              <option value="Spring">Spring Boot</option>
-              <option value="Django">Django</option>
+              <option value="SPRING">Spring</option>
+              <option value="DJANGO">Django</option>
+              <option value="VANILLA_JS">Vanilla_Js</option>
             </InputSelect>
-            <InputText>yml</InputText>
-            <InputFileLabelWrapper>
+            <InputText>Yml :</InputText>
+            <Input onChange={onChangeYml}></Input>
+            {/* <InputFileLabelWrapper>
               <InputFileLabel>
                 {fileName}
                 <InputFileHidden
@@ -185,14 +219,13 @@ function AddApp() {
                 ></InputFileHidden>
                 <FileImg src={File}></FileImg>
               </InputFileLabel>
-            </InputFileLabelWrapper>
+            </InputFileLabelWrapper> */}
             <InputText>설명</InputText>
             <InputTextArea></InputTextArea>
-          </InputForm>
-          <CompleteButton>완료</CompleteButton>
+          </InputWrapper>
+          <CompleteButton onClick={onclickSubmit}>완료</CompleteButton>
         </AddAppWrapper>
       </Wrapper>
-      <Footer />
     </>
   );
 }
