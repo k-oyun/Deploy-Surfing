@@ -1,4 +1,3 @@
-import axios from "axios";
 import api from "./api";
 
 export const BASE_URL = "https://smul.store";
@@ -72,7 +71,7 @@ export const userUpdatePost = async ({
   gitHubToken,
 }: UserUpdateData) => {
   try {
-    const res = await axios.post(
+    const res = await api.post(
       `/user/update?name=${newName}&awsRoleArn=${awsRoleArn}&awsAccessKey=${awsAccessKey}&awsSecretKey=${awsSecretKey}&dockerToken=${dockerHubToken}&dockerHubName=${dockerHubName}&gitHubToken=${gitHubToken}`
     );
     return res.data;
@@ -107,6 +106,7 @@ export const addAppPost = async ({
       version,
       port,
     });
+    console.log(res);
     return res;
   } catch (error) {
     console.log(name, type, gitHubUrl, yml, version, port);
