@@ -216,7 +216,6 @@ export const appGet = async (id: string) => {
 
 export const appDelete = async (id: string) => {
   const accessToken = await getAccessToken();
-
   try {
     const res = await axios.delete(
       `${BASE_URL}/app?appId=${id}`,
@@ -229,7 +228,7 @@ export const appDelete = async (id: string) => {
       }
     );
     console.log(res);
-    return res.data;
+    return res;
   } catch (error) {
     console.log(error);
   }

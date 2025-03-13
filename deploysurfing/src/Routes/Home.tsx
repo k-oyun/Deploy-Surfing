@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import BackgroundImage from "../assets/images/background.png";
 import DefloyLogo from "../assets/images/logo.png";
@@ -102,6 +102,16 @@ const SubImg = styled.img`
 
 function Main() {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
+  console.log(accessToken);
+  const onClickStartBtn = () => {
+    if (accessToken) {
+      navigate("/main");
+    } else {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+    }
+  };
   return (
     <Wrapper>
       <Header />
@@ -113,11 +123,7 @@ function Main() {
           <SubTopText>
             불필요한 설정 없이 프로젝트를 바로 배포해 보세요.
           </SubTopText>
-          <StartBtn
-            onClick={() => {
-              navigate("/main");
-            }}
-          >
+          <StartBtn onClick={onClickStartBtn}>
             <StartBtnText>시작하기</StartBtnText>
           </StartBtn>
         </MainDiv>
