@@ -2,7 +2,7 @@ import { motion, SVGMotionProps } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PowerButton from "../assets/images/powerbutton.png";
-interface PowerProps extends SVGMotionProps<SVGSVGElement> {
+interface PowerProps {
   $ispoweron?: boolean;
 }
 interface styleType {
@@ -34,28 +34,21 @@ const AppBtnTextWrapper = styled.div`
 
 const AppBtnText = styled.span``;
 
-const PowerBtn = styled.div`
+const PowerBtn = styled.div<PowerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0px;
-  background-color: transparent;
+  background-color: ${(props) => (props.$ispoweron ? "#6DB33F" : "#fc8787")};
+  border-radius: 50%;
   display: flex;
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 30px;
   cursor: pointer;
 `;
 
-const Power = styled(motion.svg)<PowerProps>`
-  width: 38px;
-  height: 30px;
-  fill: ${(props) => (props.$ispoweron ? "#6DB33F" : "#fc8787")};
-  z-index: 100;
-  position: absolute;
-`;
-
 const PowerBtnImg = styled.img`
-  position: absolute;
+  position: relative;
   z-index: 500;
   width: 19px;
   height: 19px;
@@ -85,15 +78,6 @@ const AppBtn = ({
           $isselected={(selectedApp === app.id) === true || false}
         >
           <PowerBtn>
-            <Power
-              xmlns="http://www.w3.org/2000/svg"
-              width="45"
-              height="45"
-              viewBox="0 0 45 45"
-              $ispoweron={app.ispoweron} //ispoweron 프롭으로 각 앱의 파워 상태 전달
-            >
-              <circle cx="22.5" cy="22.5" r="22.5" />
-            </Power>
             <PowerBtnImg src={PowerButton}></PowerBtnImg>
           </PowerBtn>
 
