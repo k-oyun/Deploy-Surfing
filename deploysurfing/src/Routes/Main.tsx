@@ -63,6 +63,7 @@ const DeployInfoWrappers = styled.div<styleType>`
   width: 90%;
   height: fit-content;
   margin-left: 300px;
+  padding-bottom: 50px;
 `;
 
 const DeployInfoWrapper = styled.div<styleType>`
