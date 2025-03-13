@@ -106,7 +106,6 @@ export const addAppPost = async ({
       version,
       port,
     });
-    console.log(res);
     return res;
   } catch (error) {
     console.log(name, type, gitHubUrl, yml, version, port);

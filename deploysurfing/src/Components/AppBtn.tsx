@@ -110,7 +110,12 @@ const AppBtn = ({
               style={{
                 fontSize: 11,
                 fontWeight: 800,
-                color: app.framework === "SPRING" ? "#6DB33F" : "#3B6DEB",
+                color:
+                  app.framework === "SPRING"
+                    ? "#6DB33F"
+                    : app.framework === "DJANGO"
+                    ? "#3B6DEB"
+                    : "#F7DF1D",
               }}
             >
               {app.framework}
