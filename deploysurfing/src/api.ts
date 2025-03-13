@@ -192,3 +192,45 @@ export const appListGet = async () => {
     console.log(error);
   }
 };
+
+export const appGet = async (id: string) => {
+  const accessToken = await getAccessToken();
+
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/app?appId=${id}`,
+
+      {
+        headers: {
+          Authorization: accessToken,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const appDelete = async (id: string) => {
+  const accessToken = await getAccessToken();
+
+  try {
+    const res = await axios.delete(
+      `${BASE_URL}/app?appId=${id}`,
+
+      {
+        headers: {
+          Authorization: accessToken,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

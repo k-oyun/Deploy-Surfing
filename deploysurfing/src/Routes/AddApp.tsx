@@ -4,7 +4,6 @@ import File from "../assets/images/file-lines-solid 1.png";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { addAppPost } from "../api";
-import { frame } from "framer-motion";
 
 const Wrapper = styled.div`
   display: flex;
@@ -164,21 +163,6 @@ function AddApp() {
   // };
 
   const onclickSubmit = () => {
-    // console.log(
-    //   "name:",
-    //   appName,
-    //   "type:",
-    //   framework,
-    //   "url:",
-    //   url,
-    //   "yml:",
-    //   yml,
-    //   "version:",
-    //   version,
-    //   "port:",
-    //   port
-    // );
-
     addAppPost({
       name: appName,
       type: framework,

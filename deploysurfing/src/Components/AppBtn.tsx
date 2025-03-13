@@ -2,7 +2,6 @@ import { motion, SVGMotionProps } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PowerButton from "../assets/images/powerbutton.png";
-import { appListGet } from "../api";
 interface PowerProps extends SVGMotionProps<SVGSVGElement> {
   $ispoweron?: boolean;
 }
@@ -64,43 +63,18 @@ const PowerBtnImg = styled.img`
   margin-left: -1px;
 `;
 
-function AppBtn() {
-  const [selectedApp, setSelectedApp] = useState<string>("false");
-  const [apps, setApps] = useState([
-    {
-      id: "",
-      name: "",
-      framework: "",
-      ispoweron: false,
-    },
-  ]);
+const AppBtn = ({
+  apps,
+  selectedApp,
+  setSelectedApp,
+}: {
+  apps: { id: string; name: string; framework: string; ispoweron: boolean }[];
+  selectedApp: string;
+  setSelectedApp: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const onClickAppButton = (id: string) => {
     setSelectedApp(id);
   };
-
-  const accessToken = localStorage.getItem("accessToken");
-  useEffect(() => {
-    (async () => {
-      if (accessToken) {
-        try {
-          const res = await appListGet();
-          const formattedData = res?.data?.map(
-            (app: { id: string; name: string; type: string }) => ({
-              id: app.id,
-              name: app.name,
-              framework: app.type,
-              ispoweron: false,
-            })
-          );
-          setApps(formattedData);
-          console.log(res);
-        } catch (error) {
-          alert("토큰 만료!");
-          console.error("앱 불러오기 실패");
-        }
-      }
-    })();
-  }, []);
 
   return (
     <>
@@ -146,5 +120,5 @@ function AppBtn() {
       ))}
     </>
   );
-}
+};
 export default AppBtn;

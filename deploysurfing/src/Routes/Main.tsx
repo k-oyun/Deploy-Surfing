@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AppBtn from "../Components/AppBtn";
+import { appDelete, appGet, appListGet } from "../api";
+
+interface styleTyle {
+  $selectedapp: string;
+}
 const Wrapper = styled.div`
   display: flex;
   min-height: 100vh;
@@ -49,8 +54,8 @@ const NewAppSvg = styled(motion.svg)`
   padding: 0.3rem;
 `;
 
-const DeployInfoWrappers = styled.div`
-  display: flex;
+const DeployInfoWrappers = styled.div<styleTyle>`
+  display: ${(props) => (props.$selectedapp ? "flex" : "none")};
   align-items: center;
   flex-direction: column;
   width: 90%;
@@ -71,7 +76,7 @@ const DeployInfoTitle = styled.span`
   font-size: 160%;
   font-weight: 700;
   margin-bottom: 0.2rem;
-  margin-left: 1.1%;
+  margin-left: 15px;
 `;
 
 const DeployInfoTopWrapper = styled.div`
@@ -289,11 +294,26 @@ const EyeSvg = styled(motion.svg)`
 
 function Main() {
   const navigate = useNavigate();
+  const [appName, setAppName] = useState<string>("");
+  const [framework, setFramework] = useState<string>("");
+  const [owner, setOwner] = useState<string>("");
+  const [selectedApp, setSelectedApp] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [apps, setApps] = useState([
+    {
+      id: "",
+      name: "",
+      framework: "",
+      ispoweron: false,
+    },
+  ]);
   const [isDetailInfo, setIsDetailInfo] = useState<boolean>(false);
   const [isGithubInfo, setIsGithubInfo] = useState<boolean>(false);
   const [isAwsInfo, setIsAwsInfo] = useState<boolean>(false);
   const [isDockerInfo, setIsDockerInfo] = useState<boolean>(false);
   const [isIpVisible, setIsIpVisible] = useState<boolean>(false);
+
   var myip = "12342.23123.4";
 
   const onClickInfoButton = () => {
@@ -309,6 +329,45 @@ function Main() {
   const onClickDockerInfoBtn = () => {
     setIsDockerInfo((prev) => !prev);
   };
+
+  const accessToken = localStorage.getItem("accessToken");
+  useEffect(() => {
+    (async () => {
+      if (accessToken) {
+        try {
+          const res = await appListGet();
+          const formattedData = res?.data?.map(
+            (app: { id: string; name: string; type: string }) => ({
+              id: app.id,
+              name: app.name,
+              framework: app.type,
+              ispoweron: false,
+            })
+          );
+          setApps(formattedData);
+        } catch (error) {
+          alert("토큰 만료!");
+          console.error("앱 불러오기 실패");
+        }
+      }
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      if (accessToken) {
+        try {
+          const res = await appGet(selectedApp);
+          setAppName(res.name);
+          setFramework(res.type);
+          setOwner(res.owner);
+          setDescription(res.description);
+          setStatus(res.status);
+        } catch (error) {
+          console.error("사용자 조회 실패", error);
+        }
+      }
+    })();
+  }, [selectedApp]);
 
   return (
     <>
@@ -326,14 +385,19 @@ function Main() {
             </NewAppSvg>
             <NewAppBtnText>새 앱 추가</NewAppBtnText>
           </NewAppBtn>
-          <AppBtn />
+          <AppBtn
+            apps={apps}
+            selectedApp={selectedApp}
+            setSelectedApp={setSelectedApp}
+          />
         </Sidebar>
-        <DeployInfoWrappers>
+
+        <DeployInfoWrappers $selectedapp={selectedApp}>
           <DeployInfoWrapper
             style={{ height: isDetailInfo ? "32rem " : "10rem" }}
           >
             <DeployInfoTopWrapper>
-              <DeployInfoTitle>DeploySurfing</DeployInfoTitle>
+              <DeployInfoTitle>{appName}</DeployInfoTitle>
               <DeploySvg
                 width="59"
                 height="59"
@@ -360,7 +424,7 @@ function Main() {
                 </BtnSvg>
                 <BtnTxt>실행</BtnTxt>
               </StartOrStopBtn>
-              <StartOrStopBtn>
+              <StartOrStopBtn onClick={() => appDelete(selectedApp)}>
                 <BtnSvg
                   width="25"
                   height="29"
@@ -391,8 +455,8 @@ function Main() {
                 <DetailInfoTxt>설명</DetailInfoTxt>
               </DetailInfoLeft>
               <DetailInfoRight>
-                <DetailInfoTxt>SpringBoot</DetailInfoTxt>
-                <DetailInfoTxt>배포중</DetailInfoTxt>
+                <DetailInfoTxt>{framework}</DetailInfoTxt>
+                <DetailInfoTxt>Java</DetailInfoTxt>
                 <DetailInfoTxt>
                   {isIpVisible ? myip : "*".repeat(myip.length)}
                   {isIpVisible ? (
@@ -436,10 +500,8 @@ function Main() {
                 <DetailInfoTxt>2024.06.18</DetailInfoTxt>
                 <DetailInfoTxt>https://github.com/k-oyun</DetailInfoTxt>
                 <DetailInfoTxt>링크</DetailInfoTxt>
-                <DetailInfoTxt>DDonghyeo</DetailInfoTxt>
-                <DetailInfoTxt>
-                  앱 자동화 배포를 도와주는 spring Boot 애플리케이션
-                </DetailInfoTxt>
+                <DetailInfoTxt>{owner}</DetailInfoTxt>
+                <DetailInfoTxt>{description}</DetailInfoTxt>
               </DetailInfoRight>
             </DetailInfoWrapper>
           </DeployInfoWrapper>

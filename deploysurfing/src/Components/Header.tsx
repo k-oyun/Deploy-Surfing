@@ -127,7 +127,7 @@ const Header = () => {
   const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     (async () => {
-      // console.log(accessToken);
+      console.log(accessToken);
 
       if (accessToken) {
         try {
