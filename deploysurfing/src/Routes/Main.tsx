@@ -330,6 +330,15 @@ function Main() {
     setIsDockerInfo((prev) => !prev);
   };
 
+  const onClickDeleteBtn = async () => {
+    const res = await appDelete(selectedApp);
+    if (res?.status === 200) {
+      alert("앱 삭제가 완료되었습니다.");
+    } else {
+      alert("앱 삭제 중 문제가 발생했습니다.");
+    }
+  };
+
   const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     (async () => {
@@ -424,7 +433,7 @@ function Main() {
                 </BtnSvg>
                 <BtnTxt>실행</BtnTxt>
               </StartOrStopBtn>
-              <StartOrStopBtn onClick={() => appDelete(selectedApp)}>
+              <StartOrStopBtn onClick={onClickDeleteBtn}>
                 <BtnSvg
                   width="25"
                   height="29"
