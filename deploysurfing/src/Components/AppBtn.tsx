@@ -1,9 +1,10 @@
 import { motion, SVGMotionProps } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PowerButton from "../assets/images/powerbutton.png";
+import { appListGet } from "../api";
 interface PowerProps extends SVGMotionProps<SVGSVGElement> {
-  $ispoweron?: string;
+  $ispoweron?: boolean;
 }
 interface styleType {
   $isselected?: boolean;
@@ -49,7 +50,7 @@ const PowerBtn = styled.div`
 const Power = styled(motion.svg)<PowerProps>`
   width: 38px;
   height: 30px;
-  fill: ${(props) => (props.$ispoweron === "true" ? "#6DB33F" : "#fc8787")};
+  fill: ${(props) => (props.$ispoweron ? "#6DB33F" : "#fc8787")};
   z-index: 100;
   position: absolute;
 `;
@@ -62,29 +63,52 @@ const PowerBtnImg = styled.img`
   margin-bottom: 2px;
   margin-left: -1px;
 `;
+
 function AppBtn() {
   const [selectedApp, setSelectedApp] = useState<string>("false");
   const [apps, setApps] = useState([
     {
-      id: 1,
-      name: "DefloySurfing",
-      framework: "Spring Boot",
-      ispoweron: "false",
+      id: "",
+      name: "",
+      framework: "",
+      ispoweron: false,
     },
-    { id: 2, name: "해커톤 2팀", framework: "Django", ispoweron: "false" },
-    { id: 3, name: "App 3", framework: "Spring Boot", ispoweron: "false" },
   ]);
-  const onClickAppButton = (appName: string) => {
-    setSelectedApp(appName);
+  const onClickAppButton = (id: string) => {
+    setSelectedApp(id);
   };
+
+  const accessToken = localStorage.getItem("accessToken");
+  useEffect(() => {
+    (async () => {
+      if (accessToken) {
+        try {
+          const res = await appListGet();
+          const formattedData = res?.data?.map(
+            (app: { id: string; name: string; type: string }) => ({
+              id: app.id,
+              name: app.name,
+              framework: app.type,
+              ispoweron: false,
+            })
+          );
+          setApps(formattedData);
+          console.log(res);
+        } catch (error) {
+          alert("토큰 만료!");
+          console.error("앱 불러오기 실패");
+        }
+      }
+    })();
+  }, []);
 
   return (
     <>
       {apps.map((app) => (
         <UserAppBtn
           key={app.id}
-          onClick={() => onClickAppButton(app.name)}
-          $isselected={(selectedApp === app.name) === true || false}
+          onClick={() => onClickAppButton(app.id)}
+          $isselected={(selectedApp === app.id) === true || false}
         >
           <PowerBtn>
             <Power
@@ -112,7 +136,7 @@ function AppBtn() {
               style={{
                 fontSize: 11,
                 fontWeight: 800,
-                color: app.framework === "Spring Boot" ? "#6DB33F" : "#3B6DEB",
+                color: app.framework === "SPRING" ? "#6DB33F" : "#3B6DEB",
               }}
             >
               {app.framework}

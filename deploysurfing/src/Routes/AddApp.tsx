@@ -127,7 +127,7 @@ const CompleteButton = styled.button`
 function AddApp() {
   const [appName, setAppName] = useState<string>("");
   const [url, setUrl] = useState<string>("");
-  const [framework, setFramework] = useState<string>("Spring Boot");
+  const [framework, setFramework] = useState<string>("SPRING");
   const [yml, setYml] = useState<string>("");
   const [version, setVersion] = useState<string>("");
   const [port, setPort] = useState<string>("");
@@ -151,6 +151,7 @@ function AddApp() {
   };
   const onChangeFramework = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
+    // console.log(value);
     setFramework(value);
   };
 
@@ -163,20 +164,20 @@ function AddApp() {
   // };
 
   const onclickSubmit = () => {
-    console.log(
-      "name:",
-      appName,
-      "type:",
-      framework,
-      "url:",
-      url,
-      "yml:",
-      yml,
-      "version:",
-      version,
-      "port:",
-      port
-    );
+    // console.log(
+    //   "name:",
+    //   appName,
+    //   "type:",
+    //   framework,
+    //   "url:",
+    //   url,
+    //   "yml:",
+    //   yml,
+    //   "version:",
+    //   version,
+    //   "port:",
+    //   port
+    // );
 
     addAppPost({
       name: appName,
@@ -187,6 +188,15 @@ function AddApp() {
       port,
     });
   };
+
+  useEffect(() => {
+    console.log(appName);
+    console.log(framework);
+    console.log(url);
+    console.log(yml);
+    console.log(version);
+    console.log(port);
+  }, [appName, framework, url, yml, version, port]);
   return (
     <>
       <Header />

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const BASE_URL = "https://smul.store";
 
@@ -31,16 +30,16 @@ interface addAppData {
   port: string;
 }
 
-let cachedToken: string | null = null;
+let accessToken: string | null = null;
 
 const getAccessToken = async () => {
-  if (cachedToken) return cachedToken;
+  if (accessToken) return accessToken;
   try {
     const token = await localStorage.getItem("accessToken");
     if (token) {
-      cachedToken = `Bearer ${token}`;
+      accessToken = `Bearer ${token}`;
     }
-    return cachedToken;
+    return accessToken;
   } catch (error) {
     console.error("Token 에러!:", error);
     throw error;
@@ -59,7 +58,7 @@ export const loginPost = async ({ email, password }: LoginData) => {
       }
     );
     localStorage.setItem("accessToken", res.data.accessToken);
-    console.log(res.data.accessToken);
+    // console.log(res.data.accessToken);
     return res;
   } catch (error) {
     console.log(error);
@@ -92,7 +91,7 @@ export const userGet = async (accessToken: string) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(res);
+    // console.log(res);
     return res;
   } catch (error) {
     console.log(error);
@@ -167,7 +166,27 @@ export const addAppPost = async ({
         },
       }
     );
-    console.log(res.data);
+    // console.log(name, type, gitHubUrl, yml, version, port);
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.log(name, type, gitHubUrl, yml, version, port);
+    console.log(error);
+  }
+};
+
+export const appListGet = async () => {
+  const accessToken = await getAccessToken();
+
+  try {
+    const res = await axios.get(`${BASE_URL}/app/list`, {
+      headers: {
+        Authorization: accessToken,
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(res);
     return res;
   } catch (error) {
     console.log(error);
