@@ -5,7 +5,7 @@ import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AppBtn from "../Components/AppBtn";
-import { appDelete, appGet, appListGet } from "../api";
+import { appDelete, appGet, appListGet } from "../apiCall";
 
 interface styleTyle {
   $selectedapp: string;

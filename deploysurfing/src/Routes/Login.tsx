@@ -5,7 +5,7 @@ import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
 import KakaoLoginWideImg from "../assets/images/kakao_login_medium_wide.png";
 import { useNavigate } from "react-router-dom";
-import { loginPost } from "../api";
+import { loginPost } from "../apiCall";
 
 interface styleType {
   $ispasswordresetpossible?: string;

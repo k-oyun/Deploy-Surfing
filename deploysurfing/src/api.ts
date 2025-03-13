@@ -2,234 +2,32 @@ import axios from "axios";
 
 export const BASE_URL = "https://smul.store";
 
-interface LoginData {
-  email: string;
-  password: string;
-}
-interface SignupData {
-  name: string;
-  email: string;
-  password: string;
-}
-interface UserUpdateData {
-  newName: string;
-  awsRoleArn: string;
-  awsAccessKey: string;
-  awsSecretKey: string;
-  dockerHubToken: string;
-  dockerHubName: string;
-  gitHubToken: string;
-  accessToken: string;
-}
-interface addAppData {
-  name: string;
-  type: string;
-  gitHubUrl: string;
-  yml: string;
-  version: string;
-  port: string;
-}
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-let accessToken: string | null = null;
+api.interceptors.request.use(async (config) => {
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-const getAccessToken = async () => {
-  if (accessToken) return accessToken;
-  try {
-    const token = await localStorage.getItem("accessToken");
-    if (token) {
-      accessToken = `Bearer ${token}`;
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.log("토큰 만료");
+      localStorage.removeItem("accessToken");
+      alert("인증이 만료되었습니다. 다시 로그인 후 이용해 주세요.");
+      window.location.href = "/login";
     }
-    return accessToken;
-  } catch (error) {
-    console.error("Token 에러!:", error);
-    throw error;
+    return Promise.reject(error);
   }
-};
+);
 
-export const loginPost = async ({ email, password }: LoginData) => {
-  try {
-    const res = await axios.post(
-      `${BASE_URL}/user/login`,
-      { email, password },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    localStorage.setItem("accessToken", res.data.accessToken);
-    // console.log(res.data.accessToken);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const signupPost = async ({ name, email, password }: SignupData) => {
-  try {
-    const res = await axios.post(
-      `${BASE_URL}/user/signup?name=${name}&email=${email}&password=${password}`,
-
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(res);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const userGet = async (accessToken: string) => {
-  try {
-    const res = await axios.get(`${BASE_URL}/user`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
-    // console.log(res);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const userUpdatePost = async ({
-  newName,
-  awsRoleArn,
-  awsAccessKey,
-  awsSecretKey,
-  dockerHubToken,
-  dockerHubName,
-  gitHubToken,
-  accessToken,
-}: UserUpdateData) => {
-  try {
-    const res = await axios.post(
-      `${BASE_URL}/user/update?name=${newName}&awsRoleArn=${awsRoleArn}&awsAccessKey=${awsAccessKey}&awsSecretKey=${awsSecretKey}&dockerToken=${dockerHubToken}&dockerHubName=${dockerHubName}&gitHubToken=${gitHubToken}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    console.log(res.data);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const userDelete = async (accessToken: string) => {
-  try {
-    const res = await axios.delete(
-      `${BASE_URL}/user/withdraw`,
-
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(res.data);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const addAppPost = async ({
-  name,
-  type,
-  gitHubUrl,
-  yml,
-  version,
-  port,
-}: addAppData) => {
-  const accessToken = await getAccessToken();
-  try {
-    const res = await axios.post(
-      `${BASE_URL}/app/create`,
-      { name, type, gitHubUrl, yml, version, port },
-      {
-        headers: {
-          Authorization: accessToken,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    // console.log(name, type, gitHubUrl, yml, version, port);
-    console.log(res);
-    return res;
-  } catch (error) {
-    console.log(name, type, gitHubUrl, yml, version, port);
-    console.log(error);
-  }
-};
-
-export const appListGet = async () => {
-  const accessToken = await getAccessToken();
-
-  try {
-    const res = await axios.get(`${BASE_URL}/app/list`, {
-      headers: {
-        Authorization: accessToken,
-        "Content-Type": "application/json",
-      },
-    });
-
-    console.log(res);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const appGet = async (id: string) => {
-  const accessToken = await getAccessToken();
-
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/app?appId=${id}`,
-
-      {
-        headers: {
-          Authorization: accessToken,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(res);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const appDelete = async (id: string) => {
-  const accessToken = await getAccessToken();
-  try {
-    const res = await axios.delete(
-      `${BASE_URL}/app?appId=${id}`,
-
-      {
-        headers: {
-          Authorization: accessToken,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(res);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
+export default api;

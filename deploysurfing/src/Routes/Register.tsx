@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { motion } from "framer-motion";
-import { signupPost } from "../api";
+import { signupPost } from "../apiCall";
 import { useNavigate } from "react-router-dom";
 
 interface styleType {

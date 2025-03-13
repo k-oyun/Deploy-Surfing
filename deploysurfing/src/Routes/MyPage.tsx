@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { userDelete, userGet, userUpdatePost } from "../api";
+import { userDelete, userGet, userUpdatePost } from "../apiCall";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
@@ -191,7 +191,7 @@ function MyPage() {
           alert("회원 탈퇴가 완료되었습니다.");
           navigate("/");
         } else {
-          alert("예상치 못한 문제가 발생했습니다.");
+          alert("예상치 못한 문제가 발생했습니다. 다시 시도해 주세요.");
         }
       } catch (error) {
         alert("탈퇴 처리 중 문제가 발생했습니다.");
@@ -210,13 +210,12 @@ function MyPage() {
           dockerHubToken,
           dockerHubName,
           gitHubToken,
-          accessToken,
         });
         if (res.code === "200") {
           alert("변경 내용이 저장되었습니다.");
         }
       } catch (error) {
-        alert("변경 내용 저장 중 에러가 발생했습니다.");
+        alert("변경 내용 저장 중 에러가 발생했습니다. 다시 시도해 주세요.");
       }
     }
   };

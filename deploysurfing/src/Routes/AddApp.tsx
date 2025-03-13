@@ -3,7 +3,7 @@ import styled from "styled-components";
 import File from "../assets/images/file-lines-solid 1.png";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import { addAppPost } from "../api";
+import { addAppPost } from "../apiCall";
 
 const Wrapper = styled.div`
   display: flex;
