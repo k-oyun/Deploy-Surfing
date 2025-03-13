@@ -4,6 +4,7 @@ import File from "../assets/images/file-lines-solid 1.png";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { addAppPost } from "../apiCall";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -124,6 +125,7 @@ const CompleteButton = styled.button`
 `;
 
 function AddApp() {
+  const navigate = useNavigate();
   const [appName, setAppName] = useState<string>("");
   const [url, setUrl] = useState<string>("");
   const [framework, setFramework] = useState<string>("SPRING");
@@ -162,8 +164,8 @@ function AddApp() {
   //   }
   // };
 
-  const onclickSubmit = () => {
-    addAppPost({
+  const onclickSubmit = async () => {
+    const res = await addAppPost({
       name: appName,
       type: framework,
       gitHubUrl: url,
@@ -171,6 +173,13 @@ function AddApp() {
       version,
       port,
     });
+
+    if (res?.status == 200) {
+      alert("새 앱 추가가 완료되었습니다.");
+      navigate("/main");
+    } else {
+      alert("앱 추가 중 문제가 발생했습니다. 다시 시도해 주세요.");
+    }
   };
 
   useEffect(() => {
