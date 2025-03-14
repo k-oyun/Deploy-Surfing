@@ -171,7 +171,6 @@ const AppInfoWrapper = styled.div`
   width: 95%;
   margin-bottom: 1rem;
   background-color: #d5d5d5;
-  /* background-color: red; */
   border-radius: 10px;
 `;
 
@@ -498,7 +497,7 @@ function Main() {
                 <DetailInfoTxt>IP </DetailInfoTxt>
                 <DetailInfoTxt>ssh key</DetailInfoTxt>
                 <DetailInfoTxt>Instance</DetailInfoTxt>
-                <DetailInfoTxt>Spring Boot 버전</DetailInfoTxt>
+                <DetailInfoTxt>{framework} 버전</DetailInfoTxt>
                 <DetailInfoTxt>Java 버전</DetailInfoTxt>
                 <DetailInfoTxt>생성 날짜</DetailInfoTxt>
                 <DetailInfoTxt>Github</DetailInfoTxt>
@@ -553,7 +552,9 @@ function Main() {
                 <DetailInfoTxt>https://github.com/k-oyun</DetailInfoTxt>
                 <DetailInfoTxt>링크</DetailInfoTxt>
                 <DetailInfoTxt>{owner}</DetailInfoTxt>
-                <DetailInfoTxt>{description}</DetailInfoTxt>
+                <DetailInfoTxt>
+                  {description ? description : "설명이 추가되지 않았습니다."}
+                </DetailInfoTxt>
               </DetailInfoRight>
             </DetailInfoWrapper>
           </DeployInfoWrapper>
