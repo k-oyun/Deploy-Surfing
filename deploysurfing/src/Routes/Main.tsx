@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AppBtn from "../Components/AppBtn";
 import { appDelete, appGet, appListGet } from "../apiCall";
+import axios from "axios";
 
 interface styleType {
   $selectedapp?: string;
@@ -334,6 +335,7 @@ function Main() {
   const [selectedApp, setSelectedApp] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [ip, setIp] = useState<string>("");
   const [apps, setApps] = useState([
     {
       id: "",
@@ -347,7 +349,6 @@ function Main() {
   const [isAwsInfo, setIsAwsInfo] = useState<boolean>(false);
   const [isDockerInfo, setIsDockerInfo] = useState<boolean>(false);
   const [isIpVisible, setIsIpVisible] = useState<boolean>(false);
-
   var myip = "12342.23123.4";
 
   const onClickInfoButton = () => {
@@ -411,6 +412,13 @@ function Main() {
       }
     })();
   }, [selectedApp]);
+
+  useEffect(() => {
+    axios.get("https://geolocation-db.com/json/").then((res) => {
+      setIp(res.data.IPv4);
+    });
+    console.log(ip);
+  }, []);
 
   return (
     <>
@@ -502,7 +510,7 @@ function Main() {
                 <DetailInfoTxt>{framework}</DetailInfoTxt>
                 <DetailInfoTxt>Java</DetailInfoTxt>
                 <DetailInfoTxt>
-                  {isIpVisible ? myip : "*".repeat(myip.length)}
+                  {isIpVisible ? ip : "*".repeat(ip.length)}
                   {isIpVisible ? (
                     <EyeSvg
                       width="25"
