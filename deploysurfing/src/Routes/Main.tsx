@@ -24,9 +24,14 @@ const Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: stretch;
   position: fixed;
-  overflow-y: scroll;
+  height: 100vh;
+  overflow-y: auto;
+`;
+
+const AppBtnWrapper = styled.div`
+  height: fit-content;
+  padding-bottom: 80px;
 `;
 
 const NewAppBtn = styled.button`
@@ -271,6 +276,22 @@ const LogWrapper = styled.div`
   margin-top: 2%;
   margin-left: 4%;
   font-weight: 700;
+  ::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    &:hover {
+      background-color: #878787;
+    }
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: lightgray;
+    border-radius: 10px;
+  }
 `;
 
 const LogTxtWrapper = styled.div`
@@ -396,22 +417,24 @@ function Main() {
       <Header />
       <Wrapper>
         <Sidebar>
-          <NewAppBtn onClick={() => navigate("/addApp")}>
-            <NewAppSvg
-              xmlns="http://www.w3.org/2000/svg"
-              width="448"
-              height="512"
-              viewBox="0 0 448 512 "
-            >
-              <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-            </NewAppSvg>
-            <NewAppBtnText>새 앱 추가</NewAppBtnText>
-          </NewAppBtn>
-          <AppBtn
-            apps={apps}
-            selectedApp={selectedApp}
-            setSelectedApp={setSelectedApp}
-          />
+          <AppBtnWrapper>
+            <NewAppBtn onClick={() => navigate("/addApp")}>
+              <NewAppSvg
+                xmlns="http://www.w3.org/2000/svg"
+                width="448"
+                height="512"
+                viewBox="0 0 448 512 "
+              >
+                <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+              </NewAppSvg>
+              <NewAppBtnText>새 앱 추가</NewAppBtnText>
+            </NewAppBtn>
+            <AppBtn
+              apps={apps}
+              selectedApp={selectedApp}
+              setSelectedApp={setSelectedApp}
+            />
+          </AppBtnWrapper>
         </Sidebar>
         <DeployInfoWrappers $selectedapp={selectedApp}>
           <DeployInfoWrapper $isdetailinfo={isDetailInfo}>
