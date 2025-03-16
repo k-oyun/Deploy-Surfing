@@ -13,6 +13,7 @@ const Nav = styled(motion.nav)`
   border: 1.5px solid rgba(0, 0, 0, 0.2);
   flex-direction: row;
   background-color: rgb(59, 59, 59);
+  position: relative;
 `;
 
 // const OpenSidebar = styled(motion.svg)`
@@ -50,9 +51,9 @@ const UserLogoSvg = styled(motion.svg)`
 `;
 
 const UserMyPageLogoSvg = styled(motion.svg)`
-  width: 2.5rem;
-  height: 1.5rem;
-  padding-right: 0.6rem;
+  width: 40px;
+  height: 20px;
+  padding-right: 8px;
 `;
 const LogoBtn = styled.div`
   flex: 1;
@@ -75,21 +76,24 @@ const UserMyPageOptions = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 8.8vw;
-  height: 13%;
-  margin-top: 17vh;
-  margin-left: 90%;
+  top: 35px;
+  right: 10px;
+  width: auto;
+  min-width: 150px;
+  height: 130px;
+  /* margin-top: 17vh; */
+  /* margin-left: 90%; */
   background-color: rgb(59, 59, 59);
-
   border: 1px solid white;
   border-radius: 5%;
 `;
 
 const UserMyPageOption = styled.div`
   display: flex;
-  width: 55%;
+  width: fit-content;
   height: 25%;
   margin-top: 0.4vw;
+  margin-right: 10px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -181,7 +185,8 @@ const Header = () => {
                   fill="white"
                 />
               </UserMyPageLogoSvg>
-              <UserMyPageOptionTxt>{userName}</UserMyPageOptionTxt>
+              {/* <UserMyPageOptionTxt>{userName}</UserMyPageOptionTxt> */}
+              <UserMyPageOptionTxt>dsdsdsdasdsadasds</UserMyPageOptionTxt>
             </UserMyPageOption>
             <UserMyPageOption
               onClick={() => {
